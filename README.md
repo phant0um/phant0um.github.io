@@ -25,8 +25,9 @@ justamente para não existir uma lista paralela que diverge em silêncio.
 
 ## Série 1 — verde que mente
 
-Cinco casos em que um sistema meu declarou estar verificado e não estava. Cada
-artigo se sustenta sozinho; a ordem abaixo é a de leitura.
+Cinco casos em que um sistema meu declarou estar verificado e não estava, mais
+a régua que tentei extrair deles. Cada artigo se sustenta sozinho; a ordem
+abaixo é a de leitura.
 
 | # | Post | Assunto |
 |---|---|---|
@@ -35,9 +36,10 @@ artigo se sustenta sozinho; a ordem abaixo é a de leitura.
 | 3 | `claude-md-e-firmware` | instrução sempre-carregada é imposto |
 | 4 | `auditoria-descartada` | o que fazer quando o resultado está contaminado |
 | 5 | `gate-de-privacidade-wikilink` | default fechado como controle de acesso |
+| 6 | `limiar-de-verificacao` | quanta verificação cada mudança merece |
 
-A ordem não é decorativa: 2–5 citam o artigo 1, e o 3 depende do 4 para o leitor
-saber por que a validação daquele corte foi refeita.
+A ordem não é decorativa: 2–5 citam o artigo 1, o 3 depende do 4 para o leitor
+saber por que a validação daquele corte foi refeita, e o 6 cita os cinco.
 
 O campo `date` de cada post é **declarado** na fonte, no vault, um dia por
 artigo. Antes ele vinha do horário de execução do script, o que deixava cinco

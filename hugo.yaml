@@ -65,14 +65,15 @@ params:
       Agentes, LLMs, engenharia de sistemas e as decisões por trás deles.
 
       **Série 1 — verde que mente.** Cinco casos em que um sistema meu declarou
-      estar verificado e não estava. Cada um se sustenta sozinho; nesta ordem
-      eles se apoiam:
+      estar verificado e não estava, mais a régua que tentei extrair deles. Cada
+      um se sustenta sozinho; nesta ordem eles se apoiam:
 
       1. [A suíte que provou a si mesma](/posts/false-green-cobertura/) — cobertura derivada do exit code
       2. [O relógio de revisão que nunca disparava](/posts/relogio-de-revisao/) — `updated` no lugar de `reviewed`
       3. [CLAUDE.md é firmware](/posts/claude-md-e-firmware/) — instrução sempre-carregada é imposto
       4. [A auditoria que falhou antes de passar](/posts/auditoria-descartada/) — o que fazer quando o resultado está contaminado
       5. [O conversor que vazava títulos privados](/posts/gate-de-privacidade-wikilink/) — default fechado como controle de acesso
+      6. [Quando seis canários, quando um hook, quando nada](/posts/limiar-de-verificacao/) — quanta verificação cada mudança merece
 
   socialIcons:
     - name: github
