@@ -1,11 +1,17 @@
 ---
-title: "O conversor de wikilink que escrevi vazava títulos de notas privadas"
 slug: "gate-de-privacidade-wikilink"
+title: "O conversor de wikilink que escrevi vazava títulos de notas privadas"
+date: "2026-08-15T09:00:00-04:00"
 description: "Achei que estava resolvendo formatação. O link carrega o título da nota destino, e título de nota privada já é informação: o problema era controle de acesso."
 tags: ["pkm", "obsidian", "publishing", "privacidade"]
-date: "2026-08-15T09:00:00-04:00"
 draft: false
 summary: "Achei que estava resolvendo formatação. O link carrega o título da nota destino, e título de nota privada já é informação: o problema era controle de acesso."
+cover:
+  image: "/og/gate-de-privacidade-wikilink.png"
+  alt: "O conversor de wikilink que escrevi vazava títulos de notas privadas"
+  relative: false
+  hiddenInList: true
+  hiddenInSingle: true
 ShowToc: true
 TocOpen: false
 ---

@@ -1,11 +1,17 @@
 ---
-description: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."
-date: "2026-08-11T09:00:00-04:00"
 tags: ["testing", "verification", "mutation-testing", "ai-agents"]
-title: "Minha suíte de testes provou a si mesma, e a prova era falsa"
+description: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."
 slug: "false-green-cobertura"
+title: "Minha suíte de testes provou a si mesma, e a prova era falsa"
+date: "2026-08-11T09:00:00-04:00"
 draft: false
 summary: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."
+cover:
+  image: "/og/false-green-cobertura.png"
+  alt: "Minha suíte de testes provou a si mesma, e a prova era falsa"
+  relative: false
+  hiddenInList: true
+  hiddenInSingle: true
 ShowToc: true
 TocOpen: false
 ---

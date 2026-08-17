@@ -1,11 +1,17 @@
 ---
+date: "2026-08-12T09:00:00-04:00"
+title: "Um hook zerava meu relógio de revisão, e a documentação parecia fresca"
 slug: "relogio-de-revisao"
 description: "Gate de obsolescência que nunca disparou não é sinal de saúde. Era erro de categoria: 'updated' responde quando os bytes mudaram, 'reviewed' responde quando alguém conferiu."
-date: "2026-08-12T09:00:00-04:00"
 tags: ["docs-as-code", "ai-agents", "verification", "knowledge-management"]
-title: "Um hook zerava meu relógio de revisão, e a documentação parecia fresca"
 draft: false
 summary: "Gate de obsolescência que nunca disparou não é sinal de saúde. Era erro de categoria: 'updated' responde quando os bytes mudaram, 'reviewed' responde quando alguém conferiu."
+cover:
+  image: "/og/relogio-de-revisao.png"
+  alt: "Um hook zerava meu relógio de revisão, e a documentação parecia fresca"
+  relative: false
+  hiddenInList: true
+  hiddenInSingle: true
 ShowToc: true
 TocOpen: false
 ---

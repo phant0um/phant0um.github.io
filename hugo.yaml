@@ -39,6 +39,9 @@ params:
   description: "Artigos técnicos sobre agentes, LLMs e engenharia de sistemas."
   keywords: [blog, ai, agents, llm, engineering]
   author: "Michel"
+  # Card padrão para home, /posts/ e /tags/ — páginas sem `cover` própria.
+  # Post individual sobrescreve com a imagem do próprio título.
+  images: ["og/default.png"]
   DateFormat: "2 January 2006"
   defaultTheme: auto
   ShowReadingTime: true

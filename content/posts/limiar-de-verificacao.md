@@ -1,11 +1,17 @@
 ---
-tags: ["verification", "testing", "ai-agents", "engineering-practice"]
 title: "Quando seis canários, quando um hook, quando nada"
-description: "Cinco artigos e nenhum critério: eu decidia por instinto quanta verificação cada mudança merecia. A régua que montei descreve três dos cinco casos e me condena em dois."
+tags: ["verification", "testing", "ai-agents", "engineering-practice"]
 slug: "limiar-de-verificacao"
 date: "2026-08-17T09:00:00-04:00"
+description: "Cinco artigos e nenhum critério: eu decidia por instinto quanta verificação cada mudança merecia. A régua que montei descreve três dos cinco casos e me condena em dois."
 draft: false
 summary: "Cinco artigos e nenhum critério: eu decidia por instinto quanta verificação cada mudança merecia. A régua que montei descreve três dos cinco casos e me condena em dois."
+cover:
+  image: "/og/limiar-de-verificacao.png"
+  alt: "Quando seis canários, quando um hook, quando nada"
+  relative: false
+  hiddenInList: true
+  hiddenInSingle: true
 ShowToc: true
 TocOpen: false
 ---
