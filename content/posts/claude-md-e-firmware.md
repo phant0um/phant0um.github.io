@@ -1,8 +1,8 @@
 ---
+title: "Seu CLAUDE.md é firmware, e firmware se paga em todo request"
 description: "Instrução sempre-carregada não é documentação: é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Como cortei 27% do meu sem perder invariante."
 slug: "claude-md-e-firmware"
 tags: ["context-engineering", "claude-code", "ai-agents", "agent-harness"]
-title: "Seu CLAUDE.md é firmware, e firmware se paga em todo request"
 date: "2026-08-16T23:58:33-04:00"
 draft: false
 summary: "Instrução sempre-carregada não é documentação: é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Como cortei 27% do meu sem perder invariante."
@@ -158,7 +158,7 @@ uma revisão independente. Menor não bastava; ele ainda precisava preservar
 comportamento.
 
 E a primeira rodada dessa validação foi descartada inteira por estar
-contaminada, o que é uma história por si só.
+contaminada, o que é [uma história por si só](/posts/auditoria-descartada/).
 
 ## O trade-off
 
