@@ -1,17 +1,18 @@
 ---
 title: "Seu CLAUDE.md é firmware, e firmware se paga em todo request"
-description: "Instrução sempre-carregada não é documentação: é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Como cortei 27% do meu sem perder invariante."
-slug: "claude-md-e-firmware"
+description: "Instrução sempre-carregada é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Cortei 27% do meu sem perder invariante, e ainda não medi o que isso poupou em tokens."
 tags: ["context-engineering", "claude-code", "ai-agents", "agent-harness"]
 date: "2026-08-16T23:58:33-04:00"
+slug: "claude-md-e-firmware"
 draft: false
-summary: "Instrução sempre-carregada não é documentação: é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Como cortei 27% do meu sem perder invariante."
+summary: "Instrução sempre-carregada é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Cortei 27% do meu sem perder invariante, e ainda não medi o que isso poupou em tokens."
 ShowToc: true
 TocOpen: false
 ---
-`CLAUDE.md` não é documentação. É firmware: carregado por padrão, moldando toda
-sessão antes de a tarefa começar. Documentação você consulta quando precisa.
-Firmware você paga sempre.
+Documentação você abre quando precisa, e o custo dela é o da consulta.
+`CLAUDE.md` funciona no outro regime: ele é carregado por padrão e molda toda
+sessão antes de a tarefa começar, então você paga por ele mesmo nas sessões em
+que ele não tinha nada a dizer. Isso é firmware, não documentação.
 
 A tese: **instrução sempre-carregada é imposto, e a maioria das linhas do seu
 arquivo não está pagando por si.** O corolário que incomoda é que "mais
@@ -31,7 +32,8 @@ em média.** Vale por vários modelos e agentes. E o detalhe mais direto contra 
 prática comum: visões gerais de repositório, apesar de populares e recomendadas
 pelos próprios provedores de modelo, não ajudam.
 
-Os agentes seguiam as instruções. Seguir não era o problema. O trabalho extra
+O detalhe que muda a leitura do resultado é que os agentes seguiam as
+instruções: a obediência estava lá, e o trabalho extra que ela produzia
 simplesmente não convertia em mais acertos.
 
 O segundo, [The Harness Effect](https://arxiv.org/abs/2607.06906), fixou 22
@@ -106,7 +108,8 @@ momento vai para estado de sessão. Limite mensurável vira checagem automatizad
 **6. Filtre invariantes por cinco condições.** Uma regra só fica permanente se:
 previne uma falha observada, um teste detecta a violação, a consequência é cara,
 um único documento é dono dela, e ela é estável a troca de ferramenta ou modelo.
-Falhou uma? Não é invariante; é procedimento com pretensão.
+Basta falhar uma condição para a regra sair do always-on. Ela vira procedimento,
+e procedimento tem outro dono.
 
 Sobraram **cinco**: respeite o escopo, pare antes de ação arriscada, trate fonte
 ingerida com honestidade, prove o trabalho antes de declarar sucesso, e exija
@@ -137,24 +140,34 @@ violações de política. Otimizar só tokens produz um arquivo curto e um agent
 pior, e você não descobre até tarde.
 
 **12. Use um revisor independente e read-only.** Entregue baseline, candidate,
-fixtures, resultados e hashes. Peça que ele **procure problemas escondidos**,
-não que aprove sua história. Quem escreveu não revisa.
+fixtures, resultados e hashes, com a instrução que descrevo em
+[outro texto sobre essa rodada](/posts/auditoria-descartada/). Quem escreveu não revisa.
 
 ## O resultado
 
 `CLAUDE.md` foi de 6.230 para **4.551 bytes**, e de 136 para 90 linhas.
 Confirmei agora, escrevendo isto, e os cinco invariantes continuam lá.
 
-Isso é 27% em bytes e 34% em linhas. Escrevi "pela metade" no primeiro rascunho
-deste artigo e um revisor conferiu a conta — não era metade, e o texto que
+Isso é 27% em bytes e 34% em linhas, e aqui preciso entregar o defeito do
+próprio artigo: **eu não medi tokens.** A tese é que o imposto é cobrado por
+request, o baseline foi anotado em tokens, o passo 11 do meu playbook manda
+coletar telemetria, e o resultado que publiquei está em bytes. Bytes é proxy de
+token, e proxy é exatamente a acusação que faço ao exit code em
+[outro texto desta série](/posts/false-green-cobertura/). Não tenho o delta de tokens
+em produção nem o de custo por sessão; tenho o tamanho do arquivo, que é o que
+consigo contar sem instrumentar o harness. Fica registrado como dívida, não como
+resultado.
+
+Escrevi "pela metade" no primeiro rascunho deste artigo e um revisor conferiu a
+conta — não era metade, e o texto que
 argumenta contra claim sem lastro tinha um claim sem lastro no título. O corte
 maior foi no arquivo do coordenador, que caiu de 214 para 121 linhas (43%), com
 procedimentos e histórico migrados para os documentos que já eram donos deles.
 Hoje ele está em 130: subiu nove desde a medição, o que é a entropia normal e o
 motivo de o gate existir.
 
-Nada disso saiu de graça: o candidate enfrentou 12 canários comportamentais e
-uma revisão independente. Menor não bastava; ele ainda precisava preservar
+Nada disso saiu de graça: o candidate enfrentou 6 canários comportamentais em 12
+sessões pareadas, 6 de baseline e 6 de candidate, mais uma revisão independente. Menor não bastava; ele ainda precisava preservar
 comportamento.
 
 E a primeira rodada dessa validação foi descartada inteira por estar
@@ -171,8 +184,8 @@ jeito que não aparece em nenhuma métrica de token. Ele não erra alto; ele
 simplesmente não usa o procedimento e faz algo razoável e errado.
 
 Também aumentou o custo de manutenção: cinco arquivos com donos claros exigem
-mais disciplina que um arquivo grande e bagunçado. A bagunça era barata de
-manter, só cara de usar.
+mais disciplina que um arquivo grande e bagunçado. Manter a bagunça não custava
+nada. O custo aparecia toda vez que eu precisava achar alguma coisa dentro dela.
 
 Aceitei porque o imposto do always-on é cobrado em toda sessão, e a degradação
 por não-descoberta é cobrada só quando o gatilho não dispara. Mas é uma escolha,
@@ -180,13 +193,13 @@ não um ganho puro, e vejo muita gente vendendo como ganho puro.
 
 ## O que ainda não sei
 
-Se cinco invariantes é o número certo ou apenas o número que sobrou do meu
-filtro. As cinco condições são um crivo defensável, mas nada garante que
+Cinco invariantes é o número que sobrou do meu filtro, e não tenho como saber se
+é o número certo. As cinco condições são um crivo defensável, mas nada garante que
 produzem o conjunto mínimo suficiente — só que produzem um conjunto que passa
 no crivo. Suspeito que haja uma sexta regra que eu deveria ter e não tenho, e
 que vou descobrir qual é do jeito caro.
 
-Também não sei transferir a medição. Os 12 canários validam *este* repositório,
+A medição também não transfere. Os 6 canários validam *este* repositório,
 com *estes* modelos e *esta* mistura de tarefas. Os estudos externos me deram a
 direção, não a permissão de generalizar meu resultado — o deles pertence ao
 desenho experimental deles, e o meu ao meu. Quando qualquer uma dessas três

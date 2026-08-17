@@ -1,9 +1,9 @@
 ---
-description: "O relatório estava verde e errado: o modelo declarado não era o que rodou, e o A/B media a coisa errada. Trocar o nome do modelo salvaria a história e destruiria o experimento."
-slug: "auditoria-descartada"
 tags: ["ai-evaluation", "agent-testing", "verification", "context-engineering"]
-title: "A auditoria que falhou antes de passar"
+slug: "auditoria-descartada"
 date: "2026-08-16T23:58:34-04:00"
+description: "O relatório estava verde e errado: o modelo declarado não era o que rodou, e o A/B media a coisa errada. Trocar o nome do modelo salvaria a história e destruiria o experimento."
+title: "A auditoria que falhou antes de passar"
 draft: false
 summary: "O relatório estava verde e errado: o modelo declarado não era o que rodou, e o A/B media a coisa errada. Trocar o nome do modelo salvaria a história e destruiria o experimento."
 ShowToc: true
@@ -25,7 +25,9 @@ no momento em que jogar fora custa caro.
 ## Dois defeitos, um relatório limpo
 
 **O primeiro: modelo errado.** O relatório dizia que os canários rodaram no
-DeepSeek V4 Pro. A telemetria mostrava 13 sessões no modelo Flash.
+DeepSeek V4 Pro. A telemetria mostrava 13 sessões no modelo Flash: as 12 do
+desenho pareado mais uma de diagnóstico, que só foi rotulada como tal depois, e
+que volta a aparecer no fim deste texto.
 
 Ninguém mentiu. O comando de lançamento pedia um modelo e o que efetivamente
 atendeu foi outro — o tipo de divergência que só aparece se você medir a
@@ -89,8 +91,9 @@ invariantes`. Strings diferentes, capturadas antes de qualquer ferramenta rodar.
 Isso é preload observado, não inferido.
 
 **Resultado: 12/12 sucesso, zero re-prompts, nenhuma violação nas políticas
-verificadas.** A suíte automatizada rodou 105 testes: 104 passaram e 1 foi
-honestamente pulado.
+verificadas.** A suíte automatizada rodou 105 testes naquela data: 104 passaram
+e 1 foi honestamente pulado. Hoje ela tem 141, e 14 desses vieram do trabalho de
+cobertura que descrevo em [outro texto desta série](/posts/false-green-cobertura/).
 
 Aquele "honestamente" é chato de escrever e é o ponto do artigo inteiro. A
 redação original dizia "105 OK + 1 skipped", o que soma 106 e é impossível. A
@@ -115,10 +118,16 @@ relatório dizia que nenhum arquivo tinha sido aberto. Era falsa: a sessão de
 probe do baseline chamou `read_file` no `CLAUDE.md`. A frase está retratada,
 explicitamente, no registro.
 
-A retratação não derruba o resultado, porque o preload continua provado pelos
-system prompts capturados — evidência independente daquela frase. O que ela faz
-é separar **prova** de **afirmação**, e é isso que torna a auditoria mais forte
-depois da correção do que antes dela.
+A retratação não derruba a prova de preload, porque os system prompts capturados
+são evidência independente daquela frase. Mas ela custa mais do que eu escrevi
+na primeira versão deste artigo, e um revisor me obrigou a separar as duas
+coisas: o preload continua provado, e o *braço comportamental* daquela sessão
+específica passa a estar contaminado pelo mesmo confound da rodada 1, porque uma
+leitura de arquivo é retrieval. Não excluí a sessão nem refiz o par. É uma
+escolha, e registrá-la como escolha é diferente de tratá-la como não-problema.
+
+O que a errata faz de bom é separar **prova** de **afirmação**. O que ela não faz
+é me deixar limpo.
 
 A errata registra ainda que a contagem de commits do fechamento (24) não era a
 final (27), e um detalhe tão pequeno que quase não entrou: um `.pyc` que estava
@@ -164,15 +173,24 @@ pular o processo é proporcional à pressa.
 
 ## O que ainda não sei
 
+Se os canários mediam alguma coisa. O resultado foi 12/12, os dois braços
+acertando tudo, e um experimento em que baseline e candidate empatam em 100% não
+distingue nada: ele é compatível com "o corte não piorou" e igualmente com "os
+canários são fáceis demais para detectar piora". Para saber qual dos dois eu
+teria, precisaria de um canário que o baseline passa e que uma versão
+deliberadamente sabotada do candidate falha. Não plantei esse negativo, que é o
+passo 10 do meu próprio playbook, e o resultado que mais me tranquilizou é o que
+tem menos poder de resolução.
+
 Onde fica o limiar. Este nível de rigor — 12 sessões novas, fixtures por hash,
 revisor independente, errata pública — é claramente exagerado para corrigir um
 typo e claramente insuficiente para algo que rode contra dados de terceiros. Não
 tenho critério explícito para escolher o nível, e hoje decido por instinto, que
 é precisamente o mecanismo que este texto argumenta contra.
 
-Também não sei se o revisor independente permanece independente. Ele foi efetivo
-aqui porque recebeu o pacote sem a minha narrativa e com instrução de procurar
-defeito. Mas conforme revisor e revisado passam a compartilhar mais contexto
+O revisor independente foi efetivo aqui porque recebeu o pacote sem a minha
+narrativa e com instrução de procurar defeito, e duvido que isso se sustente.
+Conforme revisor e revisado passam a compartilhar mais contexto
 sobre o sistema — mesmas convenções, mesmos documentos, mesmas suposições — a
 independência que faz a revisão funcionar erode. Suspeito que isso já esteja
 acontecendo e não tenho como medir.

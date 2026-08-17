@@ -1,23 +1,25 @@
 ---
-description: "Converter wikilink parece formatação. É controle de acesso: o link carrega o título da nota, e título de nota privada já é informação."
-slug: "gate-de-privacidade-wikilink"
-title: "Todo exportador de vault tem um vazamento de privacidade"
+title: "O conversor de wikilink que escrevi vazava títulos de notas privadas"
+description: "Achei que estava resolvendo formatação. O link carrega o título da nota destino, e título de nota privada já é informação: o problema era controle de acesso."
 tags: ["pkm", "obsidian", "publishing", "privacidade"]
 date: "2026-08-16T23:58:35-04:00"
+slug: "gate-de-privacidade-wikilink"
 draft: false
-summary: "Converter wikilink parece formatação. É controle de acesso: o link carrega o título da nota, e título de nota privada já é informação."
+summary: "Achei que estava resolvendo formatação. O link carrega o título da nota destino, e título de nota privada já é informação: o problema era controle de acesso."
 ShowToc: true
 TocOpen: false
 ---
 Publiquei um blog essa semana e a parte que me tomou mais tempo não foi o tema,
 o deploy nem o CI. Foi decidir o que fazer com `[[colchete duplo]]`.
 
-A tese: converter wikilink não é formatação, é controle de acesso. O link
-carrega o **título** da nota destino, e título de nota privada já é informação.
-"Vou escrever sobre X" e "não vou escrever sobre X" são fatos diferentes sobre
-mim, e o segundo vaza pelo primeiro se eu deixar.
+A tese, que levei três versões do conversor para aceitar: **isso é controle de
+acesso, e eu estava tratando como formatação.** O link carrega o **título** da
+nota destino, e título de nota privada já é informação. "Vou escrever sobre X" e
+"não vou escrever sobre X" são fatos diferentes sobre mim, e o segundo vaza pelo
+primeiro se eu deixar.
 
-Isso soa exagerado até você olhar o que os exportadores fazem por padrão.
+Não fui auditar as ferramentas prontas antes de escrever a minha, então não sei
+dizer quantas erram nisso. Sei o que a minha fazia.
 
 ## O problema
 
@@ -30,7 +32,7 @@ saídas:
 3. virar link quebrado
 4. recusar a conversão e devolver o problema para o autor
 
-A saída 3 é a que a maioria produz, e é a pior de todas. Um link para
+A saída 3 é a pior de todas, e foi a que meu primeiro conversor produziu. Um link para
 `/notas/terapia-2024` num artigo sobre Kubernetes não é um 404: é um anúncio.
 O leitor vê o título no texto do link, vê a URL na barra de status ao passar o
 mouse, e ambos vazam antes de qualquer clique. O 404 é o que acontece *depois*
@@ -62,14 +64,16 @@ link para post que não existe, ou pior, permissão para linkar algo que saiu do
 ar. O modo de falha é exatamente aquele que o gate deveria impedir.
 
 **Deixar o LLM decidir caso a caso.** Descartei porque decisão de privacidade
-com resultado probabilístico não é gate. Um gate que acerta 97% das vezes num
-artigo com 30 links erra quase um por artigo, e o erro é irreversível: conteúdo
-público é indexado. Regra checável mecanicamente pertence ao código, não ao
-prompt.
+com resultado probabilístico não é gate. Não tenho a taxa de acerto de nenhum
+modelo nessa tarefa, e é justamente esse o problema: qualquer taxa abaixo de
+100% aplicada a trinta links por artigo produz um erro por punhado de artigos, e
+o erro é irreversível, porque conteúdo público é indexado. É a mesma regra que
+já tinha me tirado da inspeção manual de cobertura em
+[outro texto desta série](/posts/false-green-cobertura/), aplicada agora a privacidade.
 
 ## A solução: default fechado, verdade lida do artefato
 
-Duas decisões, uma linha de código cada.
+Duas decisões. A segunda cabe numa linha; a primeira custou uma função.
 
 **Primeira: o conjunto de publicados é lido do repositório do site**, não de uma
 declaração no vault. O site é o artefato que responde a pergunta "isto é
@@ -139,6 +143,14 @@ def alias_leaks(alias: str, target: str) -> bool:
 Contenção nos dois sentidos porque tanto encurtar quanto enfeitar preserva o
 segredo. `terapia` e `minhas anotações de terapia-2024` vazam o mesmo token.
 
+Com isso o branch do alias deixa de ser incondicional:
+
+```python
+if alias and not alias_leaks(alias, target):
+    warnings.append(...)
+    return label
+```
+
 Rodando nos quatro casos:
 
 ```
@@ -174,13 +186,14 @@ esqueceu, que é o único dia que importa.
 Isso custa algo real, e o custo cai sobre a escrita.
 
 Como qualquer link para nota não publicada some, o parágrafo precisa fechar
-sozinho. Não dá para escrever `como argumentei em [[X]]` e seguir adiante: na
-saída vira "como argumentei em X", uma referência a lugar nenhum. O contexto
-tem que estar no próprio artigo.
+sozinho. Não dá para escrever `como argumentei em [[X|outro texto meu]]` e
+seguir adiante: na saída vira "como argumentei em outro texto meu", uma
+referência a lugar nenhum. O contexto tem que estar no próprio artigo.
 
-Descobri isso pelos avisos. O conversor não barra link não resolvido, só
-reporta, e a primeira rodada cuspiu uma lista maior do que eu esperava. Cada
-aviso era uma frase minha apoiada em algo que o leitor não pode ver.
+Descobri isso pelos avisos, na versão anterior, quando o conversor ainda só
+reportava e não barrava nada. A primeira rodada cuspiu uma lista maior do que eu
+esperava, e cada aviso era uma frase minha apoiada em algo que o leitor não pode
+ver.
 
 Passei a tratar isso como sinal de qualidade, não como atrito. Artigo que
 depende do meu grafo para fazer sentido é anotação, não artigo. O gate de
@@ -192,7 +205,7 @@ alternativa é cache, e cache é a lista paralela de novo, com outro nome.
 
 ## O que ainda não sei
 
-Se resolver por título, além de nome de arquivo, foi acerto. Dois posts com
+Resolver por título, além de nome de arquivo, pode ter sido erro. Dois posts com
 títulos parecidos ainda não colidiram, mas nada impede: hoje o segundo
 sobrescreveria o primeiro no mapa, em silêncio. Suspeito que precise de detecção
 de colisão antes de o blog passar de uns 20 posts, e prefiro descobrir por gate

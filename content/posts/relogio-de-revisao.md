@@ -1,8 +1,8 @@
 ---
 title: "Um hook zerava meu relógio de revisão, e a documentação parecia fresca"
-tags: ["docs-as-code", "ai-agents", "verification", "knowledge-management"]
 slug: "relogio-de-revisao"
 description: "Gate de obsolescência que nunca disparou não é sinal de saúde. Era erro de categoria: 'updated' responde quando os bytes mudaram, 'reviewed' responde quando alguém conferiu."
+tags: ["docs-as-code", "ai-agents", "verification", "knowledge-management"]
 date: "2026-08-16T23:58:32-04:00"
 draft: false
 summary: "Gate de obsolescência que nunca disparou não é sinal de saúde. Era erro de categoria: 'updated' responde quando os bytes mudaram, 'reviewed' responde quando alguém conferiu."
@@ -17,8 +17,8 @@ esse campo. Tocar no arquivo zerava o relógio de revisão dele. Fresco para
 sempre.
 
 A tese: **o gate estava calado não porque os documentos estavam bem, mas porque
-lia o relógio errado em quase todos eles.** Silêncio de gate não é evidência de
-saúde. É evidência de silêncio, e as duas coisas se parecem até você olhar.
+lia o relógio errado em quase todos eles.** Um gate calado e um sistema saudável
+produzem a mesma tela, e eu levei meses para checar qual dos dois eu tinha.
 
 ## Erro de categoria, não erro de hook
 
@@ -110,7 +110,9 @@ carimbo perde o carimbo.
 
 ## Valeu a leitura?
 
-Essa é a pergunta cara, porque ler 279 documentos é caro.
+Essa é a pergunta cara, porque leitura é caro. E o custo real até aqui não é o
+escopo inteiro: revisei cerca de 148 documentos em lotes, e 133 continuam sem
+âncora. O número grande é a fila, não a fatura.
 
 A resposta que me convenceu foi um defeito que **nenhum gate meu podia ver**:
 seis arquivos, oito ocorrências, todas apontando uma referência de política para
@@ -138,8 +140,8 @@ dois anos sem uma linha errada e o relógio cobra revisão aos noventa dias. Um
 procedimento cujo comando mudou ontem está errado hoje, e o relógio dá mais
 oitenta e nove dias de silêncio.
 
-A primeira versão que estou usando associa cada tipo de documento ao evento que
-invalida a revisão dele, não a um intervalo:
+A primeira versão, que ainda é papel, associa cada tipo de documento ao evento
+que invalida a revisão dele, em vez de a um intervalo:
 
 | Tipo | Evento que invalida a revisão |
 |---|---|
@@ -152,11 +154,14 @@ invalida a revisão dele, não a um intervalo:
 A última linha é a mesma exclusão que já tinha feito à mão, agora com motivo em
 vez de exceção.
 
-Isso é pior de implementar e melhor de acertar. Prazo é uma subtração; evento
-exige saber o que cada documento depende, e essa dependência hoje mora na minha
-cabeça. Estou tratando o prazo fixo como fallback: ele continua rodando para
-tudo que ainda não tem gatilho declarado, porque um relógio grosseiro é melhor
-que relógio nenhum enquanto o bom não existe.
+Escrevo "ainda é papel" de propósito, porque o resto do artigo é sobre a
+diferença entre trabalho declarado e trabalho registrado, e uma tabela bonita
+sem implementação é exatamente o carimbo que este texto condena. Nenhum
+documento meu declara gatilho hoje. O prazo fixo continua rodando para tudo,
+grosseiro, porque é o que existe.
+
+Prazo é uma subtração. Evento exige saber de que cada documento depende, e essa
+dependência hoje mora na minha cabeça, que é o pior lugar possível para ela.
 
 ## O trade-off
 
@@ -173,14 +178,14 @@ quebrado porque ele mostrava zero é preferir não saber.
 
 ## O que ainda não sei
 
-Se `reviewed-scope` sobrevive ao tédio. Ele funciona hoje porque estou atento a
-ele. Minha aposta é que, sob pressa, os escopos começam a convergir para o mesmo
+O `reviewed-scope` funciona hoje porque estou atento a ele, e atenção não é
+mecanismo. Minha aposta é que, sob pressa, os escopos começam a convergir para o mesmo
 template e a distinção que uso como sinal anti-carimbo se degrada em silêncio —
 e nesse dia o campo vira o `updated` de novo, com mais passos. Não tenho gate
 para isso. Medir distinção de escopos por lote seria o começo, e ainda não
 escrevi.
 
-Se a tabela de gatilhos é implementável ou só é bonita. Cada linha dela exige
+A tabela de gatilhos da seção anterior pode ser bonita e inimplementável. Cada linha dela exige
 que o documento declare de que ele depende, e declaração de dependência
 envelhece igual a qualquer outro metadado — pelo mesmo mecanismo que quebrou o
 `updated`. Suspeito que o gatilho confiável seja o que o repositório consegue

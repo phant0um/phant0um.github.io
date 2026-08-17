@@ -1,11 +1,11 @@
 ---
-tags: ["testing", "verification", "mutation-testing", "ai-agents"]
+description: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."
 title: "Minha suíte de testes provou a si mesma, e a prova era falsa"
-description: "Um campo do relatório de auditoria errou de três formas diferentes. Todas produziam verde. A regra que sobrou: cobertura se deriva de artefato que existe, nunca de processo que terminou."
-slug: "false-green-cobertura"
+tags: ["testing", "verification", "mutation-testing", "ai-agents"]
 date: "2026-08-16T23:58:31-04:00"
+slug: "false-green-cobertura"
 draft: false
-summary: "Um campo do relatório de auditoria errou de três formas diferentes. Todas produziam verde. A regra que sobrou: cobertura se deriva de artefato que existe, nunca de processo que terminou."
+summary: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."
 ShowToc: true
 TocOpen: false
 ---
@@ -14,19 +14,20 @@ cinco deles à mão e rodei de novo. Continuou 49 de 49. Continuou verde.
 
 O número não media detectores. Media se a suíte de testes saía com código zero.
 
-A tese, que levei três bugs para aprender: **suíte verde é fato sobre o runner,
+A tese, que me custou três bugs para aprender e um quarto para levar a sério: **suíte verde é fato sobre o runner,
 não sobre o sistema.** "Os testes passaram" e "este código tem um teste que
 planta o defeito dele" parecem a mesma afirmação e não são. A primeira descreve
 um processo que terminou. A segunda descreve um artefato que existe.
 
 ## O problema: a pior classe de bug num sistema de verificação
 
-Detector quebrado falha alto. Detector que **mente sobre estar verificado**
-falha calado, e toda decisão a jusante herda a mentira.
+Um detector quebrado falha alto e alguém conserta. Um detector que **mente
+sobre estar verificado** falha calado, e toda decisão a jusante herda a mentira
+sem sinal nenhum de que havia algo a desconfiar.
 
 O mecanismo era burro, como costuma ser. O campo `proven` do relatório vinha do
-exit code da suíte. Suíte passa, e todo código declarado ganha `proven: true`,
-exista ou não um teste para ele. Autocertificação vestida de evidência.
+exit code da suíte: suíte passa, e todo código declarado ganha `proven: true`,
+exista ou não um teste para ele.
 
 O que torna isso pior que um bug comum: o número existia justamente para eu
 poder parar de olhar. Um painel de verificação que você confere manualmente não
@@ -53,8 +54,8 @@ eu quebro alguma coisa". São perguntas diferentes, e só a segunda tem valor.
 vigor. Falhou pelo motivo acima: o campo era derivado do processo, e o processo
 terminava bem mesmo com o sistema quebrado.
 
-**Contar testes.** Tentador porque é fácil: 141 testes soa suficiente. Mas
-contagem de testes não mapeia para códigos cobertos. Dez testes podem exercitar
+**Contar testes.** Tentador porque é fácil: a suíte já era grande e isso soava
+suficiente. Mas contagem de testes não mapeia para códigos cobertos. Dez testes podem exercitar
 o mesmo código e deixar sete descobertos, que foi exatamente o meu caso.
 
 **Cobrir por inspeção.** Ler a suíte e marcar o que parece coberto. Descartei
@@ -71,6 +72,12 @@ intersectar com o conjunto de códigos declarados, e reportar essa interseção.
 
 O número novo, na primeira rodada honesta: **43 de 50. Sete códigos com
 cobertura zero.**
+
+O denominador mudou de 49 para 50 aqui, e vai para 51 no fim deste texto. Não é
+erro de digitação: o conjunto de códigos declarados cresceu enquanto eu
+trabalhava, porque escrever os testes revelou detectores que precisavam de
+código próprio. Registro a variação porque um artigo que acusa número sem
+procedência não pode ter três denominadores calados.
 
 E os sete não eram obscuros. Dois deles: se o conjunto de avaliação held-out
 ainda bate com seu hash, e se uma execução emite os campos de telemetria que
@@ -109,7 +116,8 @@ Mesmo campo, visão agregada. A rodada completa somava os contadores por
 subcomando, então qualquer código checado por dois subcomandos era contado
 duas vezes.
 
-Um campo. Três formas distintas de estar confiantemente errado.
+Três formas distintas de o mesmo campo estar confiantemente errado. Ainda
+apareceria uma quarta, no fim deste texto.
 
 ## Onde está hoje
 
@@ -121,14 +129,27 @@ Pytest: 141 passed, 0 failed, 1 skipped
 cobertura: detected 51, required 51, uncovered []
 ```
 
-Antes que esse 51/51 vire outro número em que se confia: ele prova que cada
-detector tem um teste que o exercita. Não prova que os detectores detectam os
-defeitos certos. Troquei uma cobertura falsa por uma cobertura de existência,
-que é um degrau acima e não é o topo.
-
 O `uncovered: []` só vale alguma coisa porque eu sei quebrá-lo. Quando
 neutralizei doze emit-sites, oito testes falharam. Os outros quatro não tinham
 teste que os matasse, e o valor disso foi saber **quais quatro**.
+
+### O quarto false green, que apareceu enquanto eu escrevia isto
+
+Reli os dois parágrafos acima em sequência e eles se contradizem. Se todo código
+tem um teste que o exercita, neutralizar doze emit-sites deveria derrubar doze
+testes. Derrubou oito.
+
+A explicação é que emit-site e código não são a mesma unidade: um código pode
+ser afirmado por um teste que passa por outro emit-site, então o mapa
+código→teste fica completo enquanto quatro pontos de emissão continuam sem teste
+próprio. `detected 51, required 51` é verdade e insuficiente pela mesma razão que
+o exit code era: mede na granularidade errada.
+
+Não é a ressalva de que cobertura de existência não garante qualidade do
+detector, que já é conhecida. É a existência sendo contradita pela mutação, no
+mesmo relatório, e eu tinha publicado o número sem cruzar os dois. Quarta forma
+do mesmo campo estar confiantemente errado, e a primeira que o próprio artigo
+produziu.
 
 ## O trade-off
 
@@ -141,19 +162,21 @@ teste que o quebra de propósito. A suíte cresce mais rápido que o sistema.
 Também ficou mais lenta. A suíte passa de dois minutos, o que já é atrito real
 — rodo menos vezes do que deveria, e isso é uma dívida que ainda não paguei.
 
-Aceitei porque a alternativa é um painel que mente. Um gate que você nunca viu
-falhar não é gate: é comentário com custo de runtime.
+Aceitei porque a alternativa é um painel que mente. Nunca tinha visto esse gate
+falhar até neutralizar os emit-sites à mão, e até ali ele era um comentário que
+eu pagava em toda rodada.
 
 ## O que ainda não sei
 
-Se a mutação manual escala. Neutralizar emit-site à mão funcionou com doze
-sites e não vai funcionar com cem — vira trabalho chato que eu vou pular
-exatamente quando estiver com pressa, que é quando importa. Suspeito que precise
-virar rotina automatizada, mas ainda não desenhei como fazer isso sem que a
-suíte de mutação vire ela própria um processo cujo verde ninguém audita. O
-problema tem cara de recursivo e não sei onde ele para.
+Neutralizar emit-site à mão funcionou com doze sites e não vai funcionar com
+cem. Vira trabalho chato que eu pulo exatamente quando estou com pressa, que é
+quando importa. Suspeito que precise virar rotina automatizada, mas ainda não
+desenhei como fazer isso sem que a suíte de mutação vire ela própria um processo
+cujo verde ninguém audita. O problema tem cara de recursivo e não sei onde ele
+para.
 
-Também não sei se `detected == required` é a métrica final ou só a próxima
-ilusão. Ela prova que cada código tem *um* teste que o exercita. Não prova que o
-teste cobre os casos que importam, nem que o código do detector está certo. É
-melhor que exit code, e continua sendo uma proxy.
+E quanto vale `detected == required`? Ele prova que cada código tem *um* teste
+que o exercita, e não prova que o teste cobre os casos que importam nem que o
+código do detector está certo. Melhor que exit code, e ainda proxy. Minha
+suspeita é que exista uma terceira ilusão embaixo desta que eu ainda não sei
+nomear, porque as duas primeiras também pareciam o fim da linha.
