@@ -55,11 +55,24 @@ params:
   hideSummary: false
   comments: false
 
+  # Content é renderizado com markdownify pelo PaperMod, então links funcionam.
+  # A lista abaixo existe porque a home ordena do mais novo para o mais antigo,
+  # e a série se lê no sentido contrário. Sem isto o leitor entra pelo fim.
   homeInfoParams:
     Title: "phant0um"
-    Content: >
+    Content: |
       Artigos técnicos longos — o que não cabe numa thread.
       Agentes, LLMs, engenharia de sistemas e as decisões por trás deles.
+
+      **Série 1 — verde que mente.** Cinco casos em que um sistema meu declarou
+      estar verificado e não estava. Cada um se sustenta sozinho; nesta ordem
+      eles se apoiam:
+
+      1. [A suíte que provou a si mesma](/posts/false-green-cobertura/) — cobertura derivada do exit code
+      2. [O relógio de revisão que nunca disparava](/posts/relogio-de-revisao/) — `updated` no lugar de `reviewed`
+      3. [CLAUDE.md é firmware](/posts/claude-md-e-firmware/) — instrução sempre-carregada é imposto
+      4. [A auditoria que falhou antes de passar](/posts/auditoria-descartada/) — o que fazer quando o resultado está contaminado
+      5. [O conversor que vazava títulos privados](/posts/gate-de-privacidade-wikilink/) — default fechado como controle de acesso
 
   socialIcons:
     - name: github

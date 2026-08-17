@@ -1,9 +1,9 @@
 ---
 tags: ["ai-evaluation", "agent-testing", "verification", "context-engineering"]
 slug: "auditoria-descartada"
-date: "2026-08-16T23:58:34-04:00"
-description: "O relatório estava verde e errado: o modelo declarado não era o que rodou, e o A/B media a coisa errada. Trocar o nome do modelo salvaria a história e destruiria o experimento."
 title: "A auditoria que falhou antes de passar"
+date: "2026-08-14T09:00:00-04:00"
+description: "O relatório estava verde e errado: o modelo declarado não era o que rodou, e o A/B media a coisa errada. Trocar o nome do modelo salvaria a história e destruiria o experimento."
 draft: false
 summary: "O relatório estava verde e errado: o modelo declarado não era o que rodou, e o A/B media a coisa errada. Trocar o nome do modelo salvaria a história e destruiria o experimento."
 ShowToc: true

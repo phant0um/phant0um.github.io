@@ -1,8 +1,8 @@
 ---
 description: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."
-title: "Minha suíte de testes provou a si mesma, e a prova era falsa"
+date: "2026-08-11T09:00:00-04:00"
 tags: ["testing", "verification", "mutation-testing", "ai-agents"]
-date: "2026-08-16T23:58:31-04:00"
+title: "Minha suíte de testes provou a si mesma, e a prova era falsa"
 slug: "false-green-cobertura"
 draft: false
 summary: "Um campo do relatório de auditoria errou de quatro formas diferentes, e a quarta apareceu enquanto eu escrevia o artigo. Todas produziam verde."

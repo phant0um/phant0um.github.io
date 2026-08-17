@@ -23,6 +23,26 @@ O conversor resolve wikilink contra **este repo**: um link só é emitido se o
 alvo já está publicado aqui. Repo é a fonte de verdade sobre o que é público,
 justamente para não existir uma lista paralela que diverge em silêncio.
 
+## Série 1 — verde que mente
+
+Cinco casos em que um sistema meu declarou estar verificado e não estava. Cada
+artigo se sustenta sozinho; a ordem abaixo é a de leitura.
+
+| # | Post | Assunto |
+|---|---|---|
+| 1 | `false-green-cobertura` | cobertura derivada do exit code |
+| 2 | `relogio-de-revisao` | `updated` no lugar de `reviewed` |
+| 3 | `claude-md-e-firmware` | instrução sempre-carregada é imposto |
+| 4 | `auditoria-descartada` | o que fazer quando o resultado está contaminado |
+| 5 | `gate-de-privacidade-wikilink` | default fechado como controle de acesso |
+
+A ordem não é decorativa: 2–5 citam o artigo 1, e o 3 depende do 4 para o leitor
+saber por que a validação daquele corte foi refeita.
+
+O campo `date` de cada post é **declarado** na fonte, no vault, um dia por
+artigo. Antes ele vinha do horário de execução do script, o que deixava cinco
+posts a segundos de distância e a ordem da listagem à mercê da ordem do loop.
+
 ## Stack
 
 | Peça | Escolha |

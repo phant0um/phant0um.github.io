@@ -1,8 +1,8 @@
 ---
 title: "Seu CLAUDE.md é firmware, e firmware se paga em todo request"
+date: "2026-08-13T09:00:00-04:00"
 description: "Instrução sempre-carregada é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Cortei 27% do meu sem perder invariante, e ainda não medi o que isso poupou em tokens."
 tags: ["context-engineering", "claude-code", "ai-agents", "agent-harness"]
-date: "2026-08-16T23:58:33-04:00"
 slug: "claude-md-e-firmware"
 draft: false
 summary: "Instrução sempre-carregada é imposto cobrado em toda sessão. Um estudo externo mediu +20% de custo sem ganho de sucesso. Cortei 27% do meu sem perder invariante, e ainda não medi o que isso poupou em tokens."

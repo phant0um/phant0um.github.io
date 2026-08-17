@@ -1,6 +1,6 @@
 ---
 title: "Por que este blog existe"
-date: 2026-08-16T20:00:00-04:00
+date: 2026-08-10T09:00:00-04:00
 draft: false
 description: "Threads não seguram argumento longo. Aqui fica o que precisa de espaço."
 summary: "Threads não seguram argumento longo. Aqui fica o que precisa de espaço."
@@ -16,8 +16,5 @@ decisão, o que quebrou antes, o que foi descartado.
 Este blog é o destino desse excedente: artigos longos sobre sistemas de agentes,
 LLMs e engenharia, escritos a partir de trabalho real.
 
-```bash
-hugo server -D
-```
-
-Primeiro artigo de verdade em breve.
+A primeira série está no ar: cinco casos em que um sistema meu declarou estar
+verificado e não estava. A ordem de leitura está na página inicial.
