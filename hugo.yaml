@@ -1,0 +1,97 @@
+baseURL: "https://phant0um.github.io/"
+title: "phant0um"
+locale: "pt-br"
+theme: "PaperMod"
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+pagination:
+  pagerSize: 10
+
+# Necessário para a busca (index JSON)
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true # permite HTML inline dentro do Markdown
+  highlight:
+    noClasses: false # usa CSS classes -> respeita dark mode do tema
+    codeFences: true
+    guessSyntax: true
+    lineNos: false
+    style: "github-dark"
+  tableOfContents:
+    startLevel: 2
+    endLevel: 4
+
+params:
+  env: production # habilita Google Analytics/OpenGraph/Twitter cards
+  description: "Artigos técnicos sobre agentes, LLMs e engenharia de sistemas."
+  keywords: [blog, ai, agents, llm, engineering]
+  author: "Michel"
+  DateFormat: "2 January 2006"
+  defaultTheme: auto
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowToc: true
+  TocOpen: false
+  ShowRssButtonInSectionTermList: true
+  disableScrollToTop: false
+  hidemeta: false
+  hideSummary: false
+  comments: false
+
+  homeInfoParams:
+    Title: "phant0um"
+    Content: >
+      Artigos técnicos longos — o que não cabe numa thread.
+      Agentes, LLMs, engenharia de sistemas e as decisões por trás deles.
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/phant0um"
+    - name: rss
+      url: "index.xml"
+
+  assets:
+    disableHLJS: true # highlight é feito pelo Hugo (Chroma), não no browser
+    favicon: "/favicon.ico"
+
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    threshold: 0.4
+    keys: ["title", "permalink", "summary", "content"]
+
+menu:
+  main:
+    - identifier: posts
+      name: Artigos
+      url: /posts/
+      weight: 10
+    - identifier: tags
+      name: Tags
+      url: /tags/
+      weight: 20
+    - identifier: search
+      name: Buscar
+      url: /search/
+      weight: 30
+    - identifier: about
+      name: Sobre
+      url: /about/
+      weight: 40
