@@ -56,7 +56,7 @@ params:
   disableScrollToTop: false
   hidemeta: false
   hideSummary: false
-  comments: false
+  comments: true
 
   # Content é renderizado com markdownify pelo PaperMod, então links funcionam.
   # A lista abaixo existe porque a home ordena do mais novo para o mais antigo,

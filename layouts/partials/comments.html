@@ -1,0 +1,59 @@
+{{- /*
+giscus — comentários apoiados em GitHub Discussions.
+
+Sem banco e sem serviço pago: cada post vira uma discussion no próprio repo,
+e comentar exige conta GitHub. O atrito é intencional — estes artigos pedem
+revisor adversarial, não reação.
+
+mapping=pathname + strict=1: a discussion é amarrada ao caminho do post. Sem
+strict, títulos parecidos podem colidir na mesma discussion.
+
+category=Announcements porque só mantenedor abre discussion ali. Visitante
+comenta nas que o app criou, e não consegue abrir tópico solto pelo blog.
+*/ -}}
+<script src="https://giscus.app/client.js"
+        data-repo="phant0um/phant0um.github.io"
+        data-repo-id="R_kgDOT6rERQ"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOT6rERc4DDmbb"
+        data-mapping="pathname"
+        data-strict="1"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="{{ if eq site.Params.defaultTheme "dark" }}dark{{ else }}preferred_color_scheme{{ end }}"
+        data-lang="pt"
+        data-loading="lazy"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<script>
+  // O giscus roda num iframe e não enxerga o toggle do PaperMod, então um
+  // leitor que troca o tema fica com o bloco de comentários no tema anterior.
+  // postMessage é a única via de configuração depois que o iframe carregou.
+  (function () {
+    var frame = function () {
+      return document.querySelector('iframe.giscus-frame');
+    };
+    var send = function (theme) {
+      var f = frame();
+      if (!f) return;
+      f.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: theme } } },
+        'https://giscus.app'
+      );
+    };
+    var current = function () {
+      return document.body.classList.contains('dark') ? 'dark' : 'light';
+    };
+    var btn = document.getElementById('theme-toggle');
+    if (btn) {
+      // O clique do PaperMod alterna a classe no próprio handler; o setTimeout
+      // deixa esse handler terminar antes de a gente ler o estado novo.
+      btn.addEventListener('click', function () {
+        setTimeout(function () { send(current()); }, 0);
+      });
+    }
+  })();
+</script>
