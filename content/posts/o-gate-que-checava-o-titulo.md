@@ -1,8 +1,8 @@
 ---
-date: "2026-08-30T09:00:00-04:00"
+slug: "o-gate-que-checava-o-titulo"
+date: "2026-08-29T14:00:00-04:00"
 title: "O gate que checava o título: 113 páginas verdes e semanticamente vazias"
 tags: ["ai-agents", "pipelines", "gates", "postmortem"]
-slug: "o-gate-que-checava-o-titulo"
 description: "Meu pipeline materializou 117 páginas em cinco segundos por zero dólar, com todos os gates verdes. Em 113 delas, a 'tese central' era a linha title: do frontmatter da fonte. Consertei, medi o mesmo eixo de antes, e errei de novo."
 draft: false
 summary: "Meu pipeline materializou 117 páginas em cinco segundos por zero dólar, com todos os gates verdes. Em 113 delas, a 'tese central' era a linha title: do frontmatter da fonte. Consertei, medi o mesmo eixo de antes, e errei de novo."
