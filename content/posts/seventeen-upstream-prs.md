@@ -18,7 +18,7 @@ TocOpen: false
 # Seventeen upstream PRs, and nine fixed a tool that told a false story
 
 Between September 24 and October 5 I opened 17 pull requests in 8 open source
-projects that are not mine. Six are merged, ten are still open and one I closed
+projects that are not mine. Seven are merged, nine are still open and one I closed
 myself. In 9 of my 17 PRs the bug did not crash anything. The tool kept running
 and stated something false: a precision, a token saving, a readiness, a warning,
 a label. A crash is visible, because the user watches the tool fail. A false
@@ -74,6 +74,14 @@ the file. A BOM before the H1 gave `no H1 title`. A BOM before frontmatter gave
 removed a stale entry from `tools/forks.json` that made every sync print a
 warning.
 
+**ponytail** (`DietrichGebert/ponytail`), PR #1033 from my issue #1032, merged
+on October 5.
+
+The status line pointed into the versioned plugin cache, and Claude Code
+deletes old version directories after an update. After the next update the
+badge went blank with no error. The maintainer reproduced it with a status line
+aimed at a deleted cache path, then merged.
+
 ## What is still open
 
 These were open on October 5. A maintainer may still reject any of them.
@@ -96,10 +104,6 @@ These were open on October 5. A maintainer may still reject any of them.
 - **Hermes Agent** (`NousResearch/hermes-agent`) #125846. `hermes doctor` told
   Vertex users to drop the `google/` prefix from model IDs. Vertex needs that
   prefix, so a user who followed the advice broke their config.
-- **ponytail** (`DietrichGebert/ponytail`) #1033, from my issue #1032. The
-  status line pointed into the versioned plugin cache, and Claude Code deletes
-  old version directories after an update. After the next update the badge
-  went blank with no error.
 
 ## The false story, counted
 
@@ -199,7 +203,7 @@ own process.
 
 ## What comes next
 
-Ten PRs wait for review. The Bruno `console.log` path has its own `seen` set
+Nine PRs wait for review. The Bruno `console.log` path has its own `seen` set
 with the same false-cycle bug, and I offered it as a follow-up. Paperclip
 #14309 fixes two of the three items in its issue. The third, keeping
 diagnostics when a run exits non-zero with both streams empty, is still open.
