@@ -89,6 +89,10 @@ menu:
       name: Artigos
       url: /posts/
       weight: 10
+    - identifier: boletins
+      name: Boletins
+      url: /boletins/
+      weight: 15
     - identifier: tags
       name: Tags
       url: /tags/
