@@ -1,0 +1,338 @@
+/*
+Estilo "jornal" só para /boletins/. PaperMod carrega este arquivo em TODAS as
+páginas, então toda regra aqui precisa de um seletor que só existe em páginas
+de boletim: `.bol-root` (wrapper que os layouts de boletins/ criam) ou
+`body:has(.bol-root)` (para pintar o body sem tocar no baseof do tema).
+
+WHY :has e não body.boletins: o baseof do PaperMod não põe classe no body, e
+sobrescrever o baseof só para isso duplicaria o tema inteiro. :has é suportado
+nos navegadores atuais; em navegador antigo a página cai no PaperMod normal,
+que é o comportamento seguro.
+
+Dark mode: o toggle do PaperMod marca <html data-theme="dark">, não body.dark.
+Por isso o seletor escuro cobre os dois casos (html[data-theme] e body.dark),
+caso o tema mude no futuro.
+*/
+
+/* ---- Variáveis: tokens MagSpread (magspread.css), não mais paleta própria.
+WHY: um sistema só. Jornal e blog trocam de tema juntos e a cor de marca vive num
+lugar. Como --ms-* é herdada e muda com data-theme, não há bloco escuro aqui. ---- */
+body:has(.bol-root),
+.bol-root {
+  --bol-paper: var(--ms-page);
+  --bol-ink: var(--ms-ink);
+  --bol-muted: var(--ms-muted);
+  /* Régua um tom mais forte que a do cartão, para separar blocos de jornal. */
+  --bol-rule: var(--ms-rule-strong);
+  --bol-wash: var(--ms-card);
+  --bol-link: var(--ms-primary);
+  --bol-serif: var(--ms-serif);
+  --bol-sans: var(--ms-sans);
+}
+
+/* ---- Página e cabeçalho do tema: o fundo do PaperMod é branco/cinza e
+brigaria com o papel. Pintamos header/footer com a mesma cor do body. ---- */
+body:has(.bol-root) {
+  background: var(--bol-paper);
+}
+body:has(.bol-root) .header,
+body:has(.bol-root) .footer {
+  background: var(--bol-paper);
+}
+/* A coluna do PaperMod tem 720px; o jornal usa até 1240px. Só afetamos o
+.main quando há .bol-root dentro, então posts continuam com 720px. */
+body:has(.bol-root) .main {
+  max-width: 1240px;
+}
+
+/* ---- Wrapper ---- */
+.bol-root {
+  font-family: var(--bol-sans);
+  color: var(--bol-ink);
+  background: var(--bol-paper);
+  line-height: 1.5;
+}
+.bol-root a {
+  color: var(--bol-link);
+  text-decoration: none;
+}
+.bol-root a:hover {
+  text-decoration: underline;
+}
+
+/* ---- Cabeçalho (masthead) ---- */
+.bol-root .bol-masthead {
+  border-bottom: 3px solid var(--bol-ink);
+  padding: 8px 0 0;
+  margin-bottom: 24px;
+  text-align: center;
+}
+/* Linha de data: sans pequena e caixa-alta, como a faixa de data de jornal. */
+.bol-root .bol-dateline {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bol-muted);
+  border-bottom: 1px solid var(--bol-rule);
+  padding-bottom: 6px;
+}
+.bol-root .bol-wordmark {
+  font-family: var(--bol-serif);
+  font-size: 44px;
+  font-weight: bold;
+  letter-spacing: -0.01em;
+  padding: 12px 0 6px;
+}
+.bol-root .bol-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 4px 0;
+  font-size: 14px;
+  border-top: 1px solid var(--bol-rule);
+  padding: 8px 0;
+}
+/* Separador entre links só com pseudo-elemento: o HTML fica limpo e o nav
+continua navegável por teclado (o separador não é foco). */
+.bol-root .bol-nav a + a::before {
+  content: "·";
+  color: var(--bol-muted);
+  padding: 0 10px;
+}
+
+/* ---- Tipografia comum ---- */
+.bol-root .bol-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--bol-muted);
+  margin-bottom: 4px;
+}
+.bol-root .bol-kicker {
+  font-family: var(--bol-serif);
+  font-size: 20px;
+  margin: 0 0 12px;
+  border-bottom: 2px solid var(--bol-ink);
+  padding-bottom: 4px;
+}
+.bol-root .bol-title {
+  font-family: var(--bol-serif);
+  font-size: 28px;
+  font-weight: bold;
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+.bol-root .bol-headline {
+  font-family: var(--bol-serif);
+  font-size: 40px;
+  line-height: 1.15;
+  margin: 0 0 16px;
+}
+.bol-root .bol-deck {
+  font-size: 16px;
+  color: var(--bol-muted);
+  margin: 0;
+}
+
+/* ---- Blocos empilhados separados por régua fina ---- */
+.bol-root section,
+.bol-root .bol-module,
+.bol-root .bol-row {
+  border-top: 1px solid var(--bol-rule);
+  padding: 16px 0;
+}
+.bol-root .bol-module:first-of-type,
+.bol-root .bol-hoje {
+  border-top: none;
+}
+
+/* ---- Hoje em 5 minutos: lista numerada ---- */
+.bol-root .bol-hoje-list {
+  padding-left: 28px;
+  margin: 0;
+  font-family: var(--bol-serif);
+  font-size: 17px;
+}
+.bol-root .bol-hoje-list li {
+  padding: 6px 0;
+  border-bottom: 1px dotted var(--bol-rule);
+}
+.bol-root .bol-src {
+  display: block;
+  font-family: var(--bol-sans);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bol-muted);
+}
+
+.bol-root .bol-prev {
+  list-style: none;
+  padding: 0;
+  margin: 8px 0 0;
+  font-size: 14px;
+  color: var(--bol-muted);
+}
+
+/* ---- Edição ---- */
+/* Coluna de leitura ~740px: ~75 caracteres por linha em serif 17px. */
+.bol-root .bol-article {
+  max-width: 740px;
+  margin: 0 auto;
+}
+.bol-root .bol-body {
+  font-family: var(--bol-sans);
+  font-size: 16px;
+}
+.bol-root .bol-body h2 {
+  font-family: var(--bol-serif);
+  font-size: 22px;
+  border-top: 1px solid var(--bol-rule);
+  padding-top: 16px;
+  margin-top: 28px;
+}
+.bol-root .bol-body p {
+  margin: 0 0 14px;
+}
+/* Cotações e outros blocos sem caixa: só a grade de tabela fica miúda. */
+.bol-root .bol-body table {
+  font-size: 14px;
+  width: 100%;
+}
+
+/* "Em resumo" em caixa: a moldura marca o que é síntese, separado do corpo. */
+.bol-root .bol-resumo {
+  border: 1px solid var(--bol-ink);
+  background: var(--bol-wash);
+  padding: 16px 20px;
+  margin: 0 0 24px;
+}
+.bol-root .bol-resumo h2 {
+  border-bottom: none;
+  padding-bottom: 0;
+  margin-bottom: 8px;
+}
+.bol-root .bol-resumo ul {
+  margin: 0;
+  padding-left: 20px;
+  font-family: var(--bol-serif);
+  font-size: 17px;
+}
+.bol-root .bol-resumo li {
+  margin-bottom: 8px;
+}
+
+/* "Por que importa:" como callout: fundo wash e barra à esquerda. O rótulo em
+caixa-alta é o que o olho procura ao varrer a página. */
+.bol-root .bol-why {
+  background: var(--bol-wash);
+  border-left: 3px solid var(--bol-ink);
+  padding: 8px 12px;
+  margin: 4px 0 16px;
+  font-size: 15px;
+  color: var(--bol-ink);
+}
+.bol-root .bol-label {
+  font-size: 12px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--bol-muted);
+  margin-right: 4px;
+}
+
+/* Fontes: menor e mudo. São referência, não leitura principal. */
+.bol-root .bol-fontes {
+  font-size: 13px;
+  color: var(--bol-muted);
+}
+.bol-root .bol-fontes h2 {
+  font-size: 13px;
+  border-bottom: none;
+}
+.bol-root .bol-fontes p {
+  margin: 0 0 4px;
+}
+
+/* Anterior / Próxima dentro do mesmo boletim. */
+.bol-root .bol-pn {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  border-top: 1px solid var(--bol-rule);
+  margin-top: 24px;
+  padding-top: 12px;
+  font-size: 14px;
+}
+.bol-root .bol-pn a {
+  display: block;
+  max-width: 48%;
+}
+.bol-root .bol-pn-t {
+  display: block;
+  font-family: var(--bol-serif);
+  font-size: 16px;
+  color: var(--bol-ink);
+}
+
+/* Telas estreitas: o nav quebra linha e a manchete encolhe. */
+@media (max-width: 720px) {
+  .bol-root .bol-wordmark { font-size: 32px; }
+  .bol-root .bol-headline { font-size: 26px; }
+  .bol-root .bol-dateline { flex-direction: column; align-items: center; }
+}
+
+/* ---- Cotações em grade: auto-fill com mínimo de 200px dá 3 colunas numa coluna
+de 740px e 1 coluna no celular, sem media query de colunas fixas. ---- */
+.bol-root .bol-cot {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0 24px;
+  font-size: 14px;
+}
+.bol-root .bol-cot li {
+  border-bottom: 1px dotted var(--bol-rule);
+  padding: 4px 0;
+}
+
+/* ---- Aviso de geração e links de apoio: pequenos e mudos, fora da leitura. ---- */
+.bol-root .bol-notice {
+  font-size: 12px;
+  color: var(--bol-muted);
+  border-top: 1px solid var(--bol-rule);
+  padding-top: 8px;
+  margin: 24px 0 0;
+}
+.bol-root .bol-footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+  font-size: 14px;
+  border-top: 3px solid var(--bol-ink);
+  margin-top: 32px;
+  padding-top: 12px;
+}
+.bol-root .bol-rss-line,
+.bol-root .bol-rss {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 8px 0 0;
+}
+
+/* ---- Seta da story row de Matérias: herda a cor do título, sem sublinhado. ---- */
+.bol-root .bol-arrow {
+  width: 0.8em;
+  height: 0.8em;
+  vertical-align: -0.05em;
+}

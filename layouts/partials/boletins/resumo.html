@@ -1,0 +1,21 @@
+{{- /*
+Extrai as bullets de "## Em resumo" de uma edição e devolve slice de strings.
+
+HOW: .RawContent é o markdown sem frontmatter. split pelo título do bloco,
+depois pelo próximo "## " para isolar só o bloco; findRE pega as linhas "- ".
+Depois replaceRE tira o "- " inicial e o marcador de fonte "[n]" do fim.
+WHY: a fonte do resumo é a própria edição, então o front page e a edição
+mostram o mesmo texto sem duplicar conteúdo em outro arquivo.
+Se a edição não tem o bloco, devolve slice vazia e o template esconde a parte.
+*/ -}}
+{{- $out := slice -}}
+{{- $partes := split .RawContent "## Em resumo" -}}
+{{- if gt (len $partes) 1 -}}
+  {{- $bloco := index (split (index $partes 1) "\n## ") 0 -}}
+  {{- range findRE `(?m)^- .+$` $bloco -}}
+    {{- $linha := replaceRE `^- ` "" . -}}
+    {{- $linha = replaceRE `\s*\[\d+\]\s*$` "" $linha -}}
+    {{- $out = $out | append (trim $linha " ") -}}
+  {{- end -}}
+{{- end -}}
+{{- return $out -}}

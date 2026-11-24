@@ -43,6 +43,18 @@ GitHub Actions → Pages
 
 Boletins com dado pessoal (carteira) ou de trabalho ficam fora por allowlist no script.
 
+### Layout de jornal (`/boletins/`)
+
+- Templates em `layouts/boletins/` (`list.html` para a capa e as listas, `single.html` para a edição). Partials de apoio em `layouts/partials/boletins/`.
+- Estilo em `assets/css/extended/boletins.css`. Toda regra começa em `.bol-root` (o wrapper que os layouts criam) ou em `body:has(.bol-root)`, então as páginas de artigo não recebem o estilo.
+- Nome do boletim sem o prefixo "Boletim " só na exibição (nav, eyebrow, módulos). O título da página e o SEO não mudam.
+- Meta description das edições: a primeira bullet de "Em resumo". Sobrescrita em `layouts/partials/head.html` (cópia do head do PaperMod com uma linha trocada).
+- Páginas de apoio em `content/boletins-info/` (Sobre os boletins, Fontes, Padrões editoriais, Correções). Não moram em `content/boletins/`, que o sync sobrescreve. Os links ficam no rodapé de `.bol-root`.
+
+### Matérias (`/posts/`)
+
+A lista de `/posts/` tem layout próprio em `layouts/posts/list.html`: título "Matérias", uma linha por artigo. O endereço e as páginas de artigo continuam PaperMod.
+
 ## Série 1 — verde que mente
 
 Cinco casos em que um sistema meu declarou estar verificado e não estava, mais

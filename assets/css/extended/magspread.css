@@ -1,0 +1,537 @@
+/* @font-face: fontes self-hosted (woff2, OFL). Ver static/fonts/OFL-*.txt. */
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-ext-700-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-900-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Playfair Display";
+  font-style: normal;
+  font-weight: 900;
+  font-display: swap;
+  src: url("/fonts/playfair-display-latin-ext-900-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-500-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-ext-500-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-700-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Manrope";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/manrope-latin-ext-700-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/source-code-pro-latin-400-normal.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: "Source Code Pro";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/source-code-pro-latin-ext-400-normal.woff2") format("woff2");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+/*
+MagSpread (MIT) aplicado ao blog inteiro. Este arquivo é a única fonte de verdade
+para cor, tipografia e raio; PaperMod e boletins.css só consomem as variáveis --ms-*.
+
+HOW: tokens --ms-* em :root (claro) e em :root[data-theme="dark"] (escuro). O toggle
+do PaperMod marca data-theme no <html>, por isso esse é o seletor principal; body.dark
+cobre o caso de o tema mudar no futuro (o spec do design usa essa classe).
+WHY: antes as cores estavam espalhadas entre boletins.css e as variáveis do tema.
+Trocar a paleta agora é mexer em um bloco só.
+
+Este arquivo é concatenado DEPOIS de boletins.css (ordem alfabética de css/extended/),
+por isso as regras daqui vencem empates de especificidade.
+*/
+
+/* ---- Tokens: claro. Papel é #FDF2E9 (surface), cartão é branco com régua #E7E5E4. ---- */
+:root {
+  --ms-page: #FDF2E9;
+  --ms-card: #FFFFFF;
+  --ms-ink: #24231F;
+  /* #5C5750 sobre o creme ≈ 6.5:1: meta e legenda sem cair abaixo de AA. */
+  --ms-muted: #5C5750;
+  --ms-primary: #134E4A;
+  /* Rose só decora: sobre o creme dá 4.26:1, então nunca em texto miúdo. */
+  --ms-rose: #E11D48;
+  --ms-rule: #E7E5E4;
+  --ms-rule-strong: #D6D3D1;
+  --ms-code-inline: #F3E8DD;
+  --ms-code-block: #24292E;
+  --ms-serif: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --ms-sans: Manrope, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --ms-mono: 'Source Code Pro', ui-monospace, Menlo, Consolas, monospace;
+  color-scheme: light;
+}
+
+/* ---- Tokens: escuro. Derivado do claro: fundo teal-preto, texto quente, teal e rose
+clareados para continuar legíveis sobre fundo escuro (ver tabela de contraste no relatório). ---- */
+:root[data-theme="dark"],
+body.dark {
+  --ms-page: #0F1F1E;
+  --ms-card: #152A28;
+  --ms-ink: #F4ECE3;
+  --ms-muted: #B8B0A6;
+  --ms-primary: #5EEAD4;
+  --ms-rose: #FB7185;
+  --ms-rule: #2C4542;
+  --ms-rule-strong: #3F5C59;
+  --ms-code-inline: #1E3634;
+  --ms-code-block: #24292E;
+  color-scheme: dark;
+}
+
+/* ---- Ponte para as variáveis do PaperMod. Mesmo seletor do tema e declaração
+posterior, então vence. WHY: o tema pinta tudo com essas variáveis; trocar os valores
+aqui recolore o site sem reescrever cada seletor do PaperMod. ---- */
+:root,
+:root[data-theme="dark"],
+body.dark {
+  --theme: var(--ms-page);
+  --entry: var(--ms-card);
+  --primary: var(--ms-primary);
+  --secondary: var(--ms-muted);
+  --tertiary: var(--ms-rule-strong);
+  --content: var(--ms-ink);
+  --code-bg: var(--ms-code-inline);
+  --code-block-bg: var(--ms-code-block);
+  --border: var(--ms-rule);
+  /* Raio zero: o próprio tema lê --radius em dezenas de seletores. */
+  --radius: 0;
+}
+
+/* ---- Sem raio e sem sombra em nenhum elemento. WHY no !important: o PaperMod põe
+border-radius e box-shadow em regras de maior especificidade (ex.: .toc, .post-tags a),
+e só um seletor universal forçado cobre todos sem listar um por um. Se um dia precisar
+de círculo (avatar, bolinha de radio), o seletor específico ganha com !important. ---- */
+*,
+*::before,
+*::after {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ---- Base ---- */
+html,
+body {
+  background: var(--ms-page);
+  color: var(--ms-ink);
+  font-family: var(--ms-sans);
+}
+body {
+  line-height: 1.5;
+}
+a {
+  color: var(--ms-primary);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+/* Títulos: Playfair, teal. Escala do spec (h1 56/1.1 black, h2 40/1.15 bold, h3 28/1.25
+bold, h4 22/1.3 bold). Só o peso e o corpo mudam; a cor é sempre a primária. */
+h1, h2, h3, h4 {
+  font-family: var(--ms-serif);
+  color: var(--ms-primary);
+}
+
+/* ---- Cabeçalho do site: logo em Playfair, menu em Manrope pequeno ---- */
+.logo a {
+  font-family: var(--ms-serif);
+  font-size: 24px; /* wordmark legível ao lado do menu; o tema usa 24 e 700 */
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--ms-primary);
+}
+/* HOW: o botão de tema herda `button` (preenchido em teal). Aqui vira ícone puro:
+sem fundo, ícone teal, anel de foco visível para teclado. WHY: o preenchimento
+competia com o wordmark; o foco precisa de anel porque não há mais fundo para marcar. */
+.theme-toggle {
+  background: transparent;
+  color: var(--ms-primary);
+  border: none;
+  box-shadow: none;
+  padding: 6px;
+  line-height: 0;
+  border-radius: 6px;
+}
+.theme-toggle:hover {
+  color: var(--ms-ink);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ms-primary);
+  outline-offset: 2px;
+}
+.menu a,
+.header-nav a {
+  font-family: var(--ms-sans);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ms-primary);
+}
+
+/* ---- Home: intro (homeInfoParams) com manchete grande; lista como story rows ---- */
+.home-info h1 {
+  font-size: 56px;
+  line-height: 1.1;
+  font-weight: 900;
+  margin: 0 0 12px;
+}
+.home-info {
+  border-bottom: 1px solid var(--ms-rule);
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+}
+.home-info .content,
+.home-info p {
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ms-muted);
+}
+
+/* Cada entrada da lista vira cartão: régua de 1px, hover marca a borda em teal.
+WHY order:-1 no rodapé: o PaperMod põe data/tempo de leitura embaixo do título; o
+padrão de jornal (e o do Matérias, em boletins.css) põe esse eyebrow em cima. Mudar
+só a ordem visual mantém o HTML do tema intacto. */
+.post-entry {
+  display: flex;
+  flex-direction: column;
+  background: var(--ms-card);
+  border: 1px solid var(--ms-rule);
+  padding: 24px;
+  margin: 0 0 12px;
+}
+.post-entry:hover {
+  border-color: var(--ms-primary);
+}
+.post-entry .entry-footer {
+  order: -1;
+  font-family: var(--ms-sans);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ms-muted);
+  margin: 0 0 6px;
+  padding: 0;
+}
+.post-entry .entry-header h2 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+.post-entry .entry-content {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ms-muted);
+  margin: 0;
+}
+.post-entry .entry-content p {
+  margin: 0;
+}
+.first-entry .entry-header h2 {
+  font-size: 40px;
+  line-height: 1.15;
+  font-weight: 700;
+}
+.first-entry .entry-header h1 {
+  font-size: 40px;
+  line-height: 1.15;
+}
+
+/* ---- Artigo: título, corpo e medida ---- */
+/* HOW: clamp escala com a largura — teto 48px no desktop (56px quebrava títulos longos
+em 5 linhas), piso 34px no celular. WHY: o título é a manchete; cabe em 2–3 linhas. */
+.post-title {
+  font-family: var(--ms-serif);
+  font-size: clamp(34px, 3.2vw + 12px, 48px);
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--ms-primary);
+  margin: 0 0 12px;
+}
+.post-description,
+.post-meta {
+  font-family: var(--ms-sans);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--ms-muted);
+}
+.post-content {
+  /* 70ch: a medida que o spec manda para leitura longa; acima disso o olho perde a linha. */
+  max-width: 70ch;
+  font-family: var(--ms-sans);
+  font-size: 18px;
+  line-height: 1.75;
+  color: var(--ms-ink);
+}
+.post-content p,
+.post-content li {
+  margin: 0 0 18px;
+}
+.post-content h2 {
+  font-size: 40px;
+  font-weight: 700;
+  line-height: 1.15;
+  margin: 48px 0 18px;
+}
+.post-content h3 {
+  font-size: 28px;
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 36px 0 12px;
+}
+.post-content h4 {
+  font-size: 22px;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 24px 0 12px;
+}
+.post-content a {
+  color: var(--ms-primary);
+}
+
+/* Drop cap: a primeira letra do primeiro parágrafo em rose, Playfair 900, flutuando
+por 3 linhas. WHY rose aqui e não no texto: é letra grande e decorativa, a exceção que
+o spec abre para a cor secundária (contraste de texto grande ≥ 3:1). */
+.post-content > p:first-of-type::first-letter {
+  float: left;
+  font-family: var(--ms-serif);
+  font-size: 4.2em;
+  font-weight: 900;
+  line-height: 0.85;
+  color: var(--ms-rose);
+  padding: 6px 12px 0 0;
+}
+
+/* Pull quote: régua rose à esquerda, texto continua tinta. */
+.post-content blockquote {
+  border-left: 4px solid var(--ms-rose);
+  margin: 36px 0;
+  padding: 0 0 0 24px;
+  font-family: var(--ms-serif);
+  font-size: 24px;
+  line-height: 1.4;
+  color: var(--ms-ink);
+}
+.post-content blockquote p {
+  margin: 0;
+}
+
+/* Código: inline em mono com superfície sutil; bloco mantém o github-dark do Chroma. */
+.post-content code {
+  font-family: var(--ms-mono);
+  font-size: 0.9em;
+  background: var(--ms-code-inline);
+  color: var(--ms-ink);
+  padding: 0.1em 0.35em;
+}
+.post-content pre {
+  font-family: var(--ms-mono);
+  font-size: 14px;
+  line-height: 1.5;
+  padding: 16px 20px;
+  overflow-x: auto;
+}
+.post-content pre code {
+  background: none;
+  padding: 0;
+}
+
+/* Tabela: régua fina entre linhas e cabeçalho em caixa-alta miúda (xs do spec). */
+.post-content table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 24px 0;
+}
+.post-content th {
+  font-family: var(--ms-sans);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ms-muted);
+  text-align: left;
+  border-bottom: 1px solid var(--ms-ink);
+  padding: 8px 12px;
+}
+.post-content td {
+  border-bottom: 1px solid var(--ms-rule-strong);
+  padding: 8px 12px;
+  vertical-align: top;
+}
+
+.post-content img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Tags, paginação e TOC: régua, sem raio. */
+.post-tags a,
+.tags a {
+  display: inline-block;
+  border: 1px solid var(--ms-rule-strong);
+  padding: 4px 10px;
+  font-family: var(--ms-sans);
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ms-primary);
+  background: transparent;
+}
+.paginav,
+.pagination {
+  border-top: 1px solid var(--ms-rule);
+  padding-top: 12px;
+}
+.paginav a,
+.pagination a {
+  font-family: var(--ms-sans);
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--ms-primary);
+}
+.toc {
+  background: var(--ms-card);
+  border: 1px solid var(--ms-rule);
+  font-family: var(--ms-sans);
+  font-size: 14px;
+}
+
+/* Busca e campos: 1px #D6D3D1; foco = 2px teal. Fundo branco nos dois temas. */
+.searchbox input,
+input[type="search"],
+input[type="text"] {
+  font-family: var(--ms-sans);
+  font-size: 16px;
+  background: var(--ms-card);
+  color: var(--ms-ink);
+  border: 1px solid var(--ms-rule-strong);
+  padding: 8px 12px;
+}
+.searchbox input:hover,
+input[type="search"]:hover,
+input[type="text"]:hover {
+  border-color: var(--ms-muted);
+}
+.searchbox input:focus,
+input[type="search"]:focus,
+input[type="text"]:focus {
+  outline: none;
+  border: 2px solid var(--ms-primary);
+  padding: 7px 11px;
+}
+
+/* Botões do tema (ex.: voltar ao topo, "ler mais"): primário preenchido. */
+button,
+.button {
+  font-family: var(--ms-sans);
+  font-weight: 700;
+  background: var(--ms-primary);
+  color: #FFFFFF;
+  border: none;
+}
+
+/* ---- Telas estreitas: a manchete do spec (56px) quebra o layout de 360px. ---- */
+@media (max-width: 720px) {
+  .home-info h1 {
+    font-size: 40px;
+  }
+  .post-entry .entry-header h2 {
+    font-size: 24px;
+  }
+  .post-content h2 {
+    font-size: 32px;
+  }
+  .post-content blockquote {
+    font-size: 20px;
+  }
+}

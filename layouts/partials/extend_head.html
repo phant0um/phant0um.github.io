@@ -1,0 +1,9 @@
+{{- /*
+Preload das duas fontes mais usadas: corpo (Manrope 400) e manchete (Playfair 700).
+HOW: link rel=preload com as=font e crossorigin; o URL tem de ser idêntico ao do @font-face
+em magspread.css, senão o navegador baixa duas vezes.
+WHY extend_head: o PaperMod já chama esse partial no <head>; usá-lo evita copiar o head do
+tema inteiro. Sem Google Fonts: nenhuma requisição a terceiros.
+*/ -}}
+<link rel="preload" href="/fonts/manrope-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="/fonts/playfair-display-latin-700-normal.woff2" as="font" type="font/woff2" crossorigin>

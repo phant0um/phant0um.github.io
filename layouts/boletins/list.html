@@ -1,0 +1,109 @@
+{{- define "main" }}
+<div class="bol-root">
+{{- partial "boletins/masthead.html" . }}
+
+{{- if .Parent.IsHome }}
+{{- /*
+FRONT PAGE /boletins/ — três módulos empilhados. Todos leem a edição mais nova
+de cada seção; nenhum tem lista própria escrita à mão, então uma edição nova
+aparece sozinha no próximo build.
+*/ -}}
+{{- $bulletins := .Sections.ByTitle }}
+
+{{- /* 1) Hoje em 5 minutos: UMA bullet por boletim (a primeira do "Em resumo" da edição mais nova).
+HOW: range first 1 pega a mais nova; with/index tira só a primeira bullet.
+WHY: com 3 bullets por boletim a lista tinha 18 itens e não cabia em 5 minutos;
+uma por boletim dá ~6 leituras e o leitor abre a edição que quer. */}}
+<section class="bol-hoje">
+  <h2 class="bol-kicker">Hoje em 5 minutos</h2>
+  <ol class="bol-hoje-list">
+    {{- range $bulletins }}{{ $b := . }}
+      {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
+        {{- with partial "boletins/resumo.html" $ed }}
+        <li>
+          <span class="bol-src">{{ replaceRE "^Boletim " "" $b.Title }}</span>
+          <a href="{{ $ed.RelPermalink }}">{{ index . 0 }}</a>
+        </li>
+        {{- end }}
+      {{- end }}
+    {{- end }}
+  </ol>
+</section>
+
+{{- /* 2) Um módulo por boletim: edição mais nova em destaque + três anteriores.
+WHY: "anteriores" fica pequeno para não competir com a edição do dia.
+replaceRE tira o "Boletim " só da exibição; o título da página fica como está. */}}
+{{- range $bulletins }}{{ $b := . }}
+  {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
+  <article class="bol-module">
+    <div class="bol-eyebrow">{{ replaceRE "^Boletim " "" $b.Title }} · {{ partial "boletins/date-pt.html" (dict "d" $ed.Date "weekday" false) }}</div>
+    <h2 class="bol-title"><a href="{{ $ed.RelPermalink }}">{{ replaceRE "^Boletim " "" $ed.Title }} →</a></h2>
+    {{- with partial "boletins/resumo.html" $ed }}
+    <p class="bol-deck">{{ index . 0 }}</p>
+    {{- end }}
+    {{- with first 3 (after 1 $b.RegularPages.ByDate.Reverse) }}
+    <ul class="bol-prev">
+      {{- range . }}
+      <li><a href="{{ .RelPermalink }}">{{ replaceRE "^Boletim " "" .Title }}</a></li>
+      {{- end }}
+    </ul>
+    {{- end }}
+  </article>
+  {{- end }}
+{{- end }}
+
+{{- /* 3) Radar: títulos em negrito da edição mais nova de CADA boletim, máximo 12.
+HOW: passo 1 junta uma lista por boletim; passo 2 intercala: 1º item de cada boletim,
+depois o 2º de cada um, e assim por diante, até 12.
+WHY: antes a lista era concatenada por boletim e o primeiro (6 itens) enchia o radar
+sozinho. Intercalar dá a todos os boletins a mesma chance de aparecer. */}}
+{{- /* HOW: loop externo é a posição (k), loop interno é o boletim. Para cada k, pega
+o k-ésimo título de cada edição mais nova. Sem lista aninhada: o Hugo espalha slices
+em append, e montar lista de listas ficou frágil. Custo: uns 36 leituras de titulos.html
+por build, desprezível. */}}
+{{- $radar := slice }}
+{{- range seq 1 12 }}{{ $k := sub . 1 }}
+  {{- range $bulletins }}{{ $b := . }}
+    {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
+      {{- $itens := partial "boletins/titulos.html" $ed }}
+      {{- if lt $k (len $itens) }}
+        {{- $radar = $radar | append (dict "b" (replaceRE "^Boletim " "" $b.Title) "t" (index $itens $k) "u" $ed.RelPermalink) }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+{{- end }}
+{{- with first 12 $radar }}
+<section class="bol-radar">
+  <h2 class="bol-kicker">Radar</h2>
+  {{- range . }}
+  <article class="bol-row">
+    <div class="bol-eyebrow">{{ .b }}</div>
+    <h3 class="bol-title"><a href="{{ .u }}">{{ .t }} →</a></h3>
+  </article>
+  {{- end }}
+</section>
+{{- end }}
+
+{{- else }}
+{{- /* LISTA DO BOLETIM: story rows, uma por edição.
+HOW: RegularPages.ByDate.Reverse põe a mais nova primeiro.
+O link RSS usa o index.xml que o Hugo gera para cada seção (formato alternativo). */}}
+<header class="bol-section-head">
+  <div class="bol-eyebrow">Boletim</div>
+  <h1 class="bol-headline">{{ .Title }}</h1>
+  {{- with .Description }}<p class="bol-deck">{{ . }}</p>{{ end }}
+  {{- with .OutputFormats.Get "RSS" }}<p class="bol-rss-line"><a href="{{ .RelPermalink }}">Assinar por RSS</a></p>{{ end }}
+</header>
+{{- range .RegularPages.ByDate.Reverse }}
+<article class="bol-row">
+  <div class="bol-eyebrow">{{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" false) }}</div>
+  <h2 class="bol-title"><a href="{{ .RelPermalink }}">{{ replaceRE "^Boletim " "" .Title }} →</a></h2>
+  {{- with partial "boletins/resumo.html" . }}
+  <p class="bol-deck">{{ index . 0 }}</p>
+  {{- end }}
+</article>
+{{- end }}
+{{- end }}
+{{- partial "boletins/footer-links.html" . }}
+</div>
+{{- end }}
