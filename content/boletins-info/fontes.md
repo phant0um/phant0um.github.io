@@ -74,3 +74,5 @@ Cada boletim usa uma lista fixa de fontes. Abaixo, nome e endereço de cada uma.
 - [Agência Brasil, justiça](https://agenciabrasil.ebc.com.br/rss/justica/feed.xml)
 - [STJ, informativo de jurisprudência](https://ww2.stj.jus.br/jurisprudencia/externo/InformativoFeed)
 - [CNJ, notícias](https://www.cnj.jus.br/)
+
+Notícias do STF chegam pela Agência Brasil, justiça; o STF não tem feed próprio usado aqui.

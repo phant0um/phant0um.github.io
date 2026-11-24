@@ -10,11 +10,11 @@ Este texto descreve o processo real. Ele muda quando o processo muda.
 
 ## Como uma edição é feita
 
-1. **Coleta.** Um script lê os feeds públicos listados em [Fontes](/boletins-info/fontes/) e guarda um retrato (snapshot) de cada item.
-2. **Ranqueamento.** O script filtra por palavras de exclusão e por seção, e ordena os itens pela fonte e pela data.
-3. **Escrita.** Um modelo de linguagem recebe só os itens selecionados e escreve o resumo, os itens e a linha "Por que importa". O modelo não usa ferramentas: não navega, não busca e não acessa o vault.
-4. **Checagem.** Antes de aceitar a edição, o pipeline confere que cada item cita uma fonte da lista do boletim e que as citações entre aspas batem com o retrato guardado. Edição que falha nessa checagem não é publicada.
-5. **Publicação.** Uma pessoa revisa o resultado e publica. Nada vai ao ar sem essa etapa.
+1. **Coleta.** Um script lê os feeds públicos listados em [Fontes](/boletins-info/fontes/). O resultado fica num arquivo da execução, com títulos, links e datas. Nos boletins com Cotações, o retrato das cotações é guardado em arquivo separado.
+2. **Ranqueamento.** O script remove duplicatas: o mesmo link ou o mesmo fato em fontes diferentes. Filtra por palavras de exclusão e, em cada fonte, por termos obrigatórios. Pontua cada item pelo peso da fonte, pela recência e pelas palavras-chave do tema. Aplica limites por seção e por fonte.
+3. **Escrita.** O texto de cada item (título e resumo) vem da fonte. O modelo traduz títulos e resumos que não estejam em português. Ele escreve "Em resumo", "Por que importa", "O que observar" e "Termos". Pode descartar itens que julga irrelevantes, mas mantém um mínimo por seção. Não acrescenta fatos. O modelo não usa ferramentas: não navega, não busca e não acessa o vault.
+4. **Checagem.** A checagem confirma que cada fonte listada é citada no texto. Rejeita links que apontam para a página inicial de um site em vez do artigo. Exige que as Cotações (e os Proventos, quando houver) batam exatamente com o retrato feito na coleta. Edição que falha não é publicada.
+5. **Publicação.** As edições são geradas em horário programado. Uma pessoa dispara a cópia para o blog e a publicação. Não há revisão item a item.
 
 ## O que cada item traz
 

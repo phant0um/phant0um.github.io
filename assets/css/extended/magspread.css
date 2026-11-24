@@ -215,8 +215,29 @@ h1, h2, h3, h4 {
 /* ---- Cabeçalho do site: logo em Playfair, menu em Manrope pequeno ---- */
 .logo a {
   font-family: var(--ms-serif);
+  font-size: 24px; /* wordmark legível ao lado do menu; o tema usa 24 e 700 */
   font-weight: 900;
+  line-height: 1.1;
   color: var(--ms-primary);
+}
+/* HOW: o botão de tema herda `button` (preenchido em teal). Aqui vira ícone puro:
+sem fundo, ícone teal, anel de foco visível para teclado. WHY: o preenchimento
+competia com o wordmark; o foco precisa de anel porque não há mais fundo para marcar. */
+.theme-toggle {
+  background: transparent;
+  color: var(--ms-primary);
+  border: none;
+  box-shadow: none;
+  padding: 6px;
+  line-height: 0;
+  border-radius: 6px;
+}
+.theme-toggle:hover {
+  color: var(--ms-ink);
+}
+.theme-toggle:focus-visible {
+  outline: 2px solid var(--ms-primary);
+  outline-offset: 2px;
 }
 .menu a,
 .header-nav a {
@@ -298,9 +319,11 @@ só a ordem visual mantém o HTML do tema intacto. */
 }
 
 /* ---- Artigo: título, corpo e medida ---- */
+/* HOW: clamp escala com a largura — teto 48px no desktop (56px quebrava títulos longos
+em 5 linhas), piso 34px no celular. WHY: o título é a manchete; cabe em 2–3 linhas. */
 .post-title {
   font-family: var(--ms-serif);
-  font-size: 56px;
+  font-size: clamp(34px, 3.2vw + 12px, 48px);
   font-weight: 900;
   line-height: 1.1;
   color: var(--ms-primary);
@@ -499,8 +522,7 @@ button,
 
 /* ---- Telas estreitas: a manchete do spec (56px) quebra o layout de 360px. ---- */
 @media (max-width: 720px) {
-  .home-info h1,
-  .post-title {
+  .home-info h1 {
     font-size: 40px;
   }
   .post-entry .entry-header h2 {
