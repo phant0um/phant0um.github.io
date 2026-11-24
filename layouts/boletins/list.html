@@ -52,15 +52,23 @@ replaceRE tira o "Boletim " só da exibição; o título da página fica como es
   {{- end }}
 {{- end }}
 
-{{- /* 3) Radar: títulos em negrito das edições mais novas, máximo 12.
-HOW: monta lista de dicts (boletim, título, link) e corta com first 12.
-WHY: a ordem é a dos boletins (por título); se um boletim tiver muitos itens
-ele domina o radar. Trade-off aceito: é um índice rápido, não um ranking. */}}
+{{- /* 3) Radar: títulos em negrito da edição mais nova de CADA boletim, máximo 12.
+HOW: passo 1 junta uma lista por boletim; passo 2 intercala: 1º item de cada boletim,
+depois o 2º de cada um, e assim por diante, até 12.
+WHY: antes a lista era concatenada por boletim e o primeiro (6 itens) enchia o radar
+sozinho. Intercalar dá a todos os boletins a mesma chance de aparecer. */}}
+{{- /* HOW: loop externo é a posição (k), loop interno é o boletim. Para cada k, pega
+o k-ésimo título de cada edição mais nova. Sem lista aninhada: o Hugo espalha slices
+em append, e montar lista de listas ficou frágil. Custo: uns 36 leituras de titulos.html
+por build, desprezível. */}}
 {{- $radar := slice }}
-{{- range $bulletins }}{{ $b := . }}
-  {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
-    {{- range partial "boletins/titulos.html" $ed }}
-      {{- $radar = $radar | append (dict "b" (replaceRE "^Boletim " "" $b.Title) "t" . "u" $ed.RelPermalink) }}
+{{- range seq 1 12 }}{{ $k := sub . 1 }}
+  {{- range $bulletins }}{{ $b := . }}
+    {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
+      {{- $itens := partial "boletins/titulos.html" $ed }}
+      {{- if lt $k (len $itens) }}
+        {{- $radar = $radar | append (dict "b" (replaceRE "^Boletim " "" $b.Title) "t" (index $itens $k) "u" $ed.RelPermalink) }}
+      {{- end }}
     {{- end }}
   {{- end }}
 {{- end }}
