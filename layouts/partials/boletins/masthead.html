@@ -1,0 +1,25 @@
+{{- /*
+Cabeçalho de jornal só nas páginas de /boletins/ (o partial é chamado pelos
+layouts da seção, nunca pelo baseof do tema).
+
+Data: a da edição mais nova, não a data do build. HOW: where filtra
+RegularPages pela seção "boletins" e ByDate.Reverse põe a mais nova primeiro.
+WHY: data de build mostraria um dia sem edição quando o pipeline não rodou.
+*/ -}}
+{{- $editions := where site.RegularPages "Section" "boletins" -}}
+{{- $newest := "" -}}
+{{- with first 1 $editions.ByDate.Reverse -}}{{- $newest = index . 0 -}}{{- end -}}
+<header class="bol-masthead">
+  <div class="bol-dateline">
+    {{- with $newest }}<span>{{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" true) }}</span>{{ end }}
+    <a href="{{ site.BaseURL }}">{{ site.Title }}</a>
+  </div>
+  <div class="bol-wordmark"><a href="/boletins/">Boletins</a></div>
+  <nav class="bol-nav" aria-label="Boletins">
+    {{- with site.GetPage "/boletins" }}
+      {{- range .Sections.ByTitle }}
+      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{- end }}
+    {{- end }}
+  </nav>
+</header>

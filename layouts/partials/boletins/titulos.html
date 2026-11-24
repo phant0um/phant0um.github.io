@@ -1,0 +1,13 @@
+{{- /*
+Títulos em negrito de cada item da edição ("**Título** — resumo [n]").
+
+HOW: findRE pega só a linha que começa com "**...**" seguida de travessão.
+WHY: o radar precisa de títulos, não do parágrafo inteiro; o travessão evita
+pegar negrito solto no meio do texto (ex.: rótulo de cotação).
+*/ -}}
+{{- $out := slice -}}
+{{- range findRE `(?m)^\*\*[^*\n]+\*\*\s+—` .RawContent -}}
+  {{- $t := replaceRE `\*\*|\s+—$` "" . -}}
+  {{- $out = $out | append (trim $t " ") -}}
+{{- end -}}
+{{- return $out -}}

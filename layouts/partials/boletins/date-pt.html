@@ -1,0 +1,22 @@
+{{- /*
+Data por extenso em pt-BR ("segunda-feira, 23 de novembro de 2026").
+
+HOW: Hugo formata nomes de dia e mês em inglês e o locale pt-br do site não
+traz esses nomes (o i18n do tema cobre só rótulos da UI). Por isso indexamos
+listas em português pelo número que o próprio Hugo devolve.
+WHY: o cabeçalho de jornal depende da data por extenso; uma data em inglês
+quebra o efeito de "jornal do dia" que o layout quer passar.
+
+Entrada: dict com "d" (time.Time) e "weekday" (bool).
+*/ -}}
+{{- $d := .d -}}
+{{- $dias := slice "domingo" "segunda-feira" "terça-feira" "quarta-feira" "quinta-feira" "sexta-feira" "sábado" -}}
+{{- /* índice 0 vazio: Format "1" devolve mês de 1 a 12, Hugo indexa de 0 */ -}}
+{{- $meses := slice "" "janeiro" "fevereiro" "março" "abril" "maio" "junho" "julho" "agosto" "setembro" "outubro" "novembro" "dezembro" -}}
+{{- $mes := index $meses (int ($d.Format "1")) -}}
+{{- $txt := printf "%d de %s de %d" $d.Day $mes $d.Year -}}
+{{- if .weekday -}}
+{{- printf "%s, %s" (index $dias $d.Weekday) $txt -}}
+{{- else -}}
+{{- $txt -}}
+{{- end -}}
