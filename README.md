@@ -23,6 +23,26 @@ O conversor resolve wikilink contra **este repo**: um link só é emitido se o
 alvo já está publicado aqui. Repo é a fonte de verdade sobre o que é público,
 justamente para não existir uma lista paralela que diverge em silêncio.
 
+## Boletins
+
+Site: https://phant0um.github.io/boletins/ — edições automáticas de boletins temáticos (IA, três poderes, finanças BR–EUA, licitações e outros).
+
+Também gerados: `content/boletins/<slug>/<AAAA-MM-DD>.md` vêm do vault e são sobrescritos no próximo sync; não edite aqui.
+
+```
+feeds públicos (RSS/Atom, APIs PNCP/BCB)
+        ↓  boletim-feed.py      (coleta, ranqueia, renderiza)
+modelo sem ferramentas          (escreve só resumo e "por que importa")
+        ↓  boletim-check.py verify  (cada fonte citada, cotações batem com snapshot)
+vault/06-GENERATED/boletins/<slug>/<data>.md
+        ↓  boletim-publish.py sync  (só boletins públicos e edições verificadas)
+content/boletins/
+        ↓  git push          (gate humano)
+GitHub Actions → Pages
+```
+
+Boletins com dado pessoal (carteira) ou de trabalho ficam fora por allowlist no script.
+
 ## Série 1 — verde que mente
 
 Cinco casos em que um sistema meu declarou estar verificado e não estava, mais
