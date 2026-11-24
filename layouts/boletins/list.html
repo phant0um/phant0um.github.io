@@ -10,18 +10,19 @@ aparece sozinha no próximo build.
 */ -}}
 {{- $bulletins := .Sections.ByTitle }}
 
-{{- /* 1) Hoje em 5 minutos: bullets do "Em resumo" da edição mais nova de cada boletim.
-HOW: range sobre first 1 pega a mais nova; partial devolve as bullets já limpas.
-WHY: o leitor lê 18 frases e decide onde entrar, sem abrir seis páginas. */}}
+{{- /* 1) Hoje em 5 minutos: UMA bullet por boletim (a primeira do "Em resumo" da edição mais nova).
+HOW: range first 1 pega a mais nova; with/index tira só a primeira bullet.
+WHY: com 3 bullets por boletim a lista tinha 18 itens e não cabia em 5 minutos;
+uma por boletim dá ~6 leituras e o leitor abre a edição que quer. */}}
 <section class="bol-hoje">
   <h2 class="bol-kicker">Hoje em 5 minutos</h2>
   <ol class="bol-hoje-list">
     {{- range $bulletins }}{{ $b := . }}
       {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
-        {{- range partial "boletins/resumo.html" $ed }}
+        {{- with partial "boletins/resumo.html" $ed }}
         <li>
-          <span class="bol-src">{{ $b.Title }}</span>
-          <a href="{{ $ed.RelPermalink }}">{{ . }}</a>
+          <span class="bol-src">{{ replaceRE "^Boletim " "" $b.Title }}</span>
+          <a href="{{ $ed.RelPermalink }}">{{ index . 0 }}</a>
         </li>
         {{- end }}
       {{- end }}
@@ -30,19 +31,20 @@ WHY: o leitor lê 18 frases e decide onde entrar, sem abrir seis páginas. */}}
 </section>
 
 {{- /* 2) Um módulo por boletim: edição mais nova em destaque + três anteriores.
-WHY: "anteriores" fica pequeno para não competir com a edição do dia. */}}
+WHY: "anteriores" fica pequeno para não competir com a edição do dia.
+replaceRE tira o "Boletim " só da exibição; o título da página fica como está. */}}
 {{- range $bulletins }}{{ $b := . }}
   {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
   <article class="bol-module">
-    <div class="bol-eyebrow">{{ $b.Title }} · {{ partial "boletins/date-pt.html" (dict "d" $ed.Date "weekday" false) }}</div>
-    <h2 class="bol-title"><a href="{{ $ed.RelPermalink }}">{{ $ed.Title }} →</a></h2>
+    <div class="bol-eyebrow">{{ replaceRE "^Boletim " "" $b.Title }} · {{ partial "boletins/date-pt.html" (dict "d" $ed.Date "weekday" false) }}</div>
+    <h2 class="bol-title"><a href="{{ $ed.RelPermalink }}">{{ replaceRE "^Boletim " "" $ed.Title }} →</a></h2>
     {{- with partial "boletins/resumo.html" $ed }}
     <p class="bol-deck">{{ index . 0 }}</p>
     {{- end }}
     {{- with first 3 (after 1 $b.RegularPages.ByDate.Reverse) }}
     <ul class="bol-prev">
       {{- range . }}
-      <li><a href="{{ .RelPermalink }}">{{ .Title }}</a></li>
+      <li><a href="{{ .RelPermalink }}">{{ replaceRE "^Boletim " "" .Title }}</a></li>
       {{- end }}
     </ul>
     {{- end }}
@@ -58,7 +60,7 @@ ele domina o radar. Trade-off aceito: é um índice rápido, não um ranking. */
 {{- range $bulletins }}{{ $b := . }}
   {{- range first 1 $b.RegularPages.ByDate.Reverse }}{{ $ed := . }}
     {{- range partial "boletins/titulos.html" $ed }}
-      {{- $radar = $radar | append (dict "b" $b.Title "t" . "u" $ed.RelPermalink) }}
+      {{- $radar = $radar | append (dict "b" (replaceRE "^Boletim " "" $b.Title) "t" . "u" $ed.RelPermalink) }}
     {{- end }}
   {{- end }}
 {{- end }}
@@ -76,21 +78,24 @@ ele domina o radar. Trade-off aceito: é um índice rápido, não um ranking. */
 
 {{- else }}
 {{- /* LISTA DO BOLETIM: story rows, uma por edição.
-HOW: RegularPages.ByDate.Reverse põe a mais nova primeiro. */}}
+HOW: RegularPages.ByDate.Reverse põe a mais nova primeiro.
+O link RSS usa o index.xml que o Hugo gera para cada seção (formato alternativo). */}}
 <header class="bol-section-head">
   <div class="bol-eyebrow">Boletim</div>
   <h1 class="bol-headline">{{ .Title }}</h1>
   {{- with .Description }}<p class="bol-deck">{{ . }}</p>{{ end }}
+  {{- with .OutputFormats.Get "RSS" }}<p class="bol-rss-line"><a href="{{ .RelPermalink }}">Assinar por RSS</a></p>{{ end }}
 </header>
 {{- range .RegularPages.ByDate.Reverse }}
 <article class="bol-row">
   <div class="bol-eyebrow">{{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" false) }}</div>
-  <h2 class="bol-title"><a href="{{ .RelPermalink }}">{{ .Title }} →</a></h2>
+  <h2 class="bol-title"><a href="{{ .RelPermalink }}">{{ replaceRE "^Boletim " "" .Title }} →</a></h2>
   {{- with partial "boletins/resumo.html" . }}
   <p class="bol-deck">{{ index . 0 }}</p>
   {{- end }}
 </article>
 {{- end }}
 {{- end }}
+{{- partial "boletins/footer-links.html" . }}
 </div>
 {{- end }}

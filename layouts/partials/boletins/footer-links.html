@@ -1,0 +1,12 @@
+{{- /*
+Links de apoio dos boletins (sobre, fontes, padrões, correções).
+HOW: renderizado só dentro de .bol-root, no fim de lista e edição.
+WHY: ficam perto de onde o leitor termina de ler e não mexem no rodapé do blog,
+que é compartilhado com os artigos.
+*/ -}}
+<nav class="bol-footer-links" aria-label="Sobre os boletins">
+  <a href="{{ relURL "boletins-info/sobre-os-boletins/" }}">Sobre os boletins</a>
+  <a href="{{ relURL "boletins-info/fontes/" }}">Fontes</a>
+  <a href="{{ relURL "boletins-info/padroes-editoriais/" }}">Padrões editoriais</a>
+  <a href="{{ relURL "boletins-info/correcoes/" }}">Correções</a>
+</nav>

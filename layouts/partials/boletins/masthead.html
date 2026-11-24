@@ -13,12 +13,13 @@ WHY: data de build mostraria um dia sem edição quando o pipeline não rodou.
   <div class="bol-dateline">
     {{- with $newest }}<span>{{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" true) }}</span>{{ end }}
     <a href="{{ site.BaseURL }}">{{ site.Title }}</a>
+    <a class="bol-rss" href="{{ "boletins/index.xml" | absURL }}">RSS</a>
   </div>
   <div class="bol-wordmark"><a href="/boletins/">Boletins</a></div>
   <nav class="bol-nav" aria-label="Boletins">
     {{- with site.GetPage "/boletins" }}
       {{- range .Sections.ByTitle }}
-      <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+      <a href="{{ .RelPermalink }}">{{ replaceRE "^Boletim " "" .Title }}</a>
       {{- end }}
     {{- end }}
   </nav>

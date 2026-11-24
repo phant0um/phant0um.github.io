@@ -1,19 +1,30 @@
 {{- define "main" }}
 {{- /* EDIÇÃO. Transforma o markdown em tipografia de jornal sem mexer no arquivo.
-HOW: três substituições no RawContent antes do markdownify:
+HOW: substituições no RawContent antes do markdownify:
   a) tira o bloco "Em resumo" (renderizado à parte, dentro de uma caixa);
   b) cada "Por que importa:" vira um parágrafo com classe e rótulo;
-  c) "## Fontes" é separado e renderizado menor.
+  c) "## Cotações" vira uma grade (ul com li) em vez de lista corrida;
+  d) "## Fontes" é separado e renderizado menor.
 WHY: o arquivo continua markdown puro (rebuild a partir do pipeline), e o
-visual vem do layout. Regex no template é frágil, por isso cada passo tem nome. */}}
+visual vem do layout. Regex no template é frágil, por isso cada passo tem nome. */ -}}
 {{- $bulletin := .Parent }}
 {{- $raw := replaceRE `(?s)## Em resumo\n.*?(\n## |\z)` "$1" .RawContent }}
 {{- $raw = replaceRE `(?m)^Por que importa:[ \t]*(.+)$` "\n\n<p class=\"bol-why\"><span class=\"bol-label\">Por que importa:</span> $1</p>\n\n" $raw }}
+{{- /* c) Cotações. HOW: pega o bloco "## Cotações" e suas linhas "- " (contíguas),
+troca cada "- " por <li> e envolve em <ul class="bol-cot">. WHY: a lista corrida
+de "NOME: VALOR (VAR%) — HORA" lê mal; em grade o olho compara as moedas. CSS
+só estiliza; a marcação continua sendo a lista do markdown. */ -}}
+{{- with findRE `(?m)^## Cotações\n(?:- .*\n?)+` $raw }}
+  {{- $bloco := index . 0 }}
+  {{- $lista := replaceRE `(?m)^- (.+)$` "<li>$1</li>" $bloco }}
+  {{- $lista = replaceRE `(?m)^## Cotações\n` "<h2 class=\"bol-kicker\">Cotações</h2>\n<ul class=\"bol-cot\">\n" $lista }}
+  {{- $raw = replace $raw $bloco (printf "%s</ul>\n" $lista) }}
+{{- end }}
 {{- $partes := split $raw "## Fontes" }}
 <div class="bol-root bol-edition">
 {{- partial "boletins/masthead.html" . }}
 <article class="bol-article">
-  <div class="bol-eyebrow"><a href="{{ $bulletin.RelPermalink }}">{{ $bulletin.Title }}</a> · {{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" true) }}</div>
+  <div class="bol-eyebrow"><a href="{{ $bulletin.RelPermalink }}">{{ replaceRE "^Boletim " "" $bulletin.Title }}</a> · {{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" true) }}</div>
   <h1 class="bol-headline">{{ .Title }}</h1>
 
   {{- with partial "boletins/resumo.html" . }}
@@ -36,6 +47,8 @@ visual vem do layout. Regex no template é frágil, por isso cada passo tem nome
   </section>
   {{- end }}
 
+  {{- partial "boletins/notice.html" . }}
+
   {{- /* Navegação só dentro do boletim. A direção vem da data (Unix), não da
   ordem do Hugo: PrevInSection/NextInSection depende do sort da seção, e o
   rótulo "Anterior" errado confundiria o leitor. */}}
@@ -47,6 +60,7 @@ visual vem do layout. Regex no template é frágil, por isso cada passo tem nome
     <a href="{{ .RelPermalink }}">{{ if gt .Date.Unix $.Date.Unix }}Mais recente →{{ else }}← Anterior{{ end }}<span class="bol-pn-t">{{ .Title }}</span></a>
     {{- end }}
   </nav>
+  {{- partial "boletins/footer-links.html" . }}
 </article>
 </div>
 {{- end }}

@@ -1,0 +1,29 @@
+{{- define "main" }}
+{{- /*
+MATÉRIAS: override da lista de /posts/ (URL mantida, rótulo do menu "Matérias").
+HOW: lista todos os posts, mais novos primeiro, em story rows. A linha de
+eyebrow usa a primeira tag (ou a seção) e a data; a bajada é .Description ou o
+resumo truncado.
+WHY: override na lista, e não página nova em /materias/, para não trocar o
+endereço que já está indexado e para não mexer nas páginas de artigo, que
+continuam PaperMod.
+Classes .bol-* reaproveitadas: o wrapper .bol-root traz os tokens de papel e tinta
+e o CSS segue escopado por ele.
+*/ -}}
+<div class="bol-root mat-root">
+<header class="bol-section-head">
+  <div class="bol-eyebrow">phant0um</div>
+  <h1 class="bol-headline">Matérias</h1>
+  <p class="bol-deck">Artigos técnicos longos sobre agentes, LLMs e engenharia de sistemas, escritos a partir de trabalho real.</p>
+</header>
+{{- range .Pages.ByDate.Reverse }}
+{{- $rotulo := .Section }}
+{{- with .Params.tags }}{{ $rotulo = index . 0 }}{{ end }}
+<article class="bol-row">
+  <div class="bol-eyebrow">Artigo · {{ $rotulo }} · {{ partial "boletins/date-pt.html" (dict "d" .Date "weekday" false) }}</div>
+  <h2 class="bol-title"><a href="{{ .RelPermalink }}">{{ .Title }} <svg class="bol-arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2"/></svg></a></h2>
+  <p class="bol-deck">{{ with .Description }}{{ . }}{{ else }}{{ .Summary | plainify | truncate 160 }}{{ end }}</p>
+</article>
+{{- end }}
+</div>
+{{- end }}
