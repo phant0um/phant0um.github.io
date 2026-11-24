@@ -1,6 +1,6 @@
 {{- define "main" }}
 {{- /*
-MATÉRIAS: override da lista de /posts/ (URL mantida, rótulo do menu "Matérias").
+ARTIGOS: override da lista de /posts/ (URL mantida, rótulo do menu "Artigos").
 HOW: lista todos os posts, mais novos primeiro, em story rows. A linha de
 eyebrow usa a primeira tag (ou a seção) e a data; a bajada é .Description ou o
 resumo truncado.
@@ -13,7 +13,7 @@ e o CSS segue escopado por ele.
 <div class="bol-root mat-root">
 <header class="bol-section-head">
   <div class="bol-eyebrow">phant0um</div>
-  <h1 class="bol-headline">Matérias</h1>
+  <h1 class="bol-headline">Artigos</h1>
   <p class="bol-deck">Artigos técnicos longos sobre agentes, LLMs e engenharia de sistemas, escritos a partir de trabalho real.</p>
 </header>
 {{- range .Pages.ByDate.Reverse }}

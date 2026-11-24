@@ -51,9 +51,9 @@ Boletins com dado pessoal (carteira) ou de trabalho ficam fora por allowlist no 
 - Meta description das edições: a primeira bullet de "Em resumo". Sobrescrita em `layouts/partials/head.html` (cópia do head do PaperMod com uma linha trocada).
 - Páginas de apoio em `content/boletins-info/` (Sobre os boletins, Fontes, Padrões editoriais, Correções). Não moram em `content/boletins/`, que o sync sobrescreve. Os links ficam no rodapé de `.bol-root`.
 
-### Matérias (`/posts/`)
+### Artigos (`/posts/`)
 
-A lista de `/posts/` tem layout próprio em `layouts/posts/list.html`: título "Matérias", uma linha por artigo. O endereço e as páginas de artigo continuam PaperMod.
+A lista de `/posts/` tem layout próprio em `layouts/posts/list.html`: título "Artigos", uma linha por artigo. O endereço e as páginas de artigo continuam PaperMod.
 
 ## Série 1 — verde que mente
 

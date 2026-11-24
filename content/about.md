@@ -14,6 +14,6 @@ resumo de documentação.
 
 Os boletins em [/boletins/](/boletins/) são outra coisa: edições automáticas sobre temas fixos, como IA, câmbio e licitações. Um script coleta feeds públicos e um modelo escreve o resumo; cada item cita a fonte. Elas podem ter erro. Veja [Padrões editoriais](/boletins-info/padroes-editoriais/) para o processo.
 
-Os artigos ficam em [Matérias](/posts/).
+Os artigos ficam em [Artigos](/posts/).
 
 - GitHub: [phant0um](https://github.com/phant0um)

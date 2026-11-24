@@ -86,7 +86,7 @@ params:
 menu:
   main:
     - identifier: posts
-      name: Matérias
+      name: Artigos
       url: /posts/
       weight: 10
     - identifier: boletins
