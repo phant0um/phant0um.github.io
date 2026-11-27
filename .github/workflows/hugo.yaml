@@ -51,6 +51,13 @@ jobs:
             --minify \
             --baseURL "${{ steps.pages.outputs.base_url }}/"
 
+      # Barra o deploy se o menu dos boletins quebrou (seção sem link, rótulo datado ou
+      # minúsculo, link markdown cru). Falhar aqui mantém o site antigo no ar.
+      # Cópia de 04-SYSTEM/scripts/blog-nav-check.py do vault; o CI não enxerga o vault,
+      # e test-blog-nav-check.py lá reprova se as duas cópias divergirem.
+      - name: Check boletins nav
+        run: python3 -I scripts/blog-nav-check.py --blog . --site ./public
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
