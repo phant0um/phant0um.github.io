@@ -14,7 +14,10 @@ Se a edição não tem o bloco, devolve slice vazia e o template esconde a parte
   {{- $bloco := index (split (index $partes 1) "\n## ") 0 -}}
   {{- range findRE `(?m)^- .+$` $bloco -}}
     {{- $linha := replaceRE `^- ` "" . -}}
-    {{- $linha = replaceRE `\s*\[\d+\]\s*$` "" $linha -}}
+    {{- /* Marcador de fonte no fim: "[3]" (formato antigo) ou "[3](url)" (resumo com link,
+    desde 2026-11-26), um ou vários seguidos. WHY: o texto vai dentro de um <a> que já
+    aponta para a edição; link markdown cru ali aparecia literal na front page. */ -}}
+    {{- $linha = replaceRE `(\s*\[\d+\](\([^)\s]*\))?)+\s*$` "" $linha -}}
     {{- $out = $out | append (trim $linha " ") -}}
   {{- end -}}
 {{- end -}}
