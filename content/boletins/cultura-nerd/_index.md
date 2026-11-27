@@ -1,3 +1,3 @@
 ---
-title: "Boletim Cultura Nerd — 17/10/2026"
+title: "Boletim Cultura Nerd"
 ---

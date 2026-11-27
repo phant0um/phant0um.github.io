@@ -22,5 +22,8 @@ WHY: data de build mostraria um dia sem edição quando o pipeline não rodou.
       <a href="{{ .RelPermalink }}">{{ replaceRE "^Boletim " "" .Title }}</a>
       {{- end }}
     {{- end }}
+    {{- /* Briefing 24h mora em /briefing/ (fora da seção, sem lead literal do feed),
+    então .Sections de /boletins não o enxerga. Link explícito mantém o leitor achando. */}}
+    {{- with site.GetPage "/briefing" }}<a href="{{ .RelPermalink }}">{{ .Title }}</a>{{ end }}
   </nav>
 </header>

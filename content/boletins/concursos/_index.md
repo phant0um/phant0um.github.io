@@ -1,3 +1,3 @@
 ---
-title: "Boletim de Concursos"
+title: "Boletim Concursos"
 ---
